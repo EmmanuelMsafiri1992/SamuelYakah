@@ -9,14 +9,26 @@ use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\SeoSettingController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TrainingModuleController;
+use App\Http\Controllers\CareFundingController;
+use App\Http\Controllers\CareersController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LiveInCareController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResourcesController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/live-in-care', [LiveInCareController::class, 'index'])->name('live-in-care');
+Route::get('/care-funding', [CareFundingController::class, 'index'])->name('care-funding');
+Route::get('/resources', [ResourcesController::class, 'index'])->name('resources');
+Route::get('/careers', [CareersController::class, 'index'])->name('careers');
+Route::get('/news', [NewsController::class, 'index'])->name('news');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 // Job application public routes
 Route::get('/apply', [JobApplicationController::class, 'create'])->name('job-applications.create');

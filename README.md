@@ -1,4 +1,4 @@
-# Helping Hands - Live-in Care Jobs Website
+# Violetta Home Care Limited - Live-in Care Jobs Website
 
 A comprehensive, bilingual (English/Polish) live-in care recruitment website built with Laravel 12, Vue.js 3, Inertia.js, and Tailwind CSS.
 
@@ -11,7 +11,7 @@ A comprehensive, bilingual (English/Polish) live-in care recruitment website bui
 - **Comprehensive Sections**:
   - Hero section with compelling CTAs
   - Job search functionality
-  - Why Choose Helping Hands (Benefits)
+  - Why Choose Violetta Home Care Limited (Benefits)
   - Role & Responsibilities
   - Training & Development programs
   - Success Stories/Testimonials
@@ -118,7 +118,7 @@ Visit: http://localhost:8000
 - **White/Light**: #ffffff, #f9fafb
 
 ### Logo
-- Helping hands icon (two hands together)
+- Violetta Home Care Limited icon (two hands together)
 - Gradient effect (blue to teal)
 - Tagline: "Compassionate Care, Rewarding Careers"
 
@@ -164,8 +164,8 @@ php artisan optimize
 
 ## 📄 License
 
-This project is proprietary software for Helping Hands.
+This project is proprietary software for Violetta Home Care Limited.
 
 ---
 
-**Built with ❤️ for Helping Hands - Compassionate Care, Rewarding Careers**
+**Built with ❤️ for Violetta Home Care Limited - Compassionate Care, Rewarding Careers**

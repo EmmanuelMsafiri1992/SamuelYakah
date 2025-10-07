@@ -13,7 +13,7 @@ return [
     'support' => 'Wsparcie',
 
     // Benefits Section
-    'benefits_title' => 'Dlaczego Helping Hands?',
+    'benefits_title' => 'Dlaczego Violetta Home Care Limited?',
     'benefits_subtitle' => 'Wyjątkowe benefity i wsparcie, aby pomóc Ci rozwijać karierę',
 
     // Jobs Section
@@ -60,7 +60,7 @@ return [
 
     // Testimonials
     'testimonials_title' => 'Historie Sukcesu Naszych Opiekunów',
-    'testimonials_subtitle' => 'Posłuchaj członków naszego zespołu o ich doświadczeniach i rozwoju kariery z Helping Hands',
+    'testimonials_subtitle' => 'Posłuchaj członków naszego zespołu o ich doświadczeniach i rozwoju kariery z Violetta Home Care Limited',
     'years_experience' => 'lat doświadczenia',
 
     // FAQ
@@ -73,9 +73,9 @@ return [
 
     // Application Steps
     'application_journey' => 'Twoja Droga do Satysfakcjonującej Kariery',
-    'application_steps' => 'Postępuj zgodnie z naszym prostym 5-etapowym procesem, aby rozpocząć karierę z Helping Hands',
+    'application_steps' => 'Postępuj zgodnie z naszym prostym 5-etapowym procesem, aby rozpocząć karierę z Violetta Home Care Limited',
     'ready_started' => 'Gotowy na Start?',
-    'join_carers' => 'Dołącz do setek opiekunów, którzy już rozpoczęli swoją satysfakcjonującą karierę z Helping Hands. Będziemy wspierać Cię na każdym kroku.',
+    'join_carers' => 'Dołącz do setek opiekunów, którzy już rozpoczęli swoją satysfakcjonującą karierę z Violetta Home Care Limited. Będziemy wspierać Cię na każdym kroku.',
     'start_application' => 'Rozpocznij Aplikację',
 
     // Resources
@@ -87,7 +87,7 @@ return [
 
     // Contact
     'contact_title' => 'Skontaktuj Się z Nami',
-    'contact_subtitle' => 'Masz pytania? Jesteśmy tutaj, aby pomóc. Skontaktuj się z nami dzisiaj, aby dowiedzieć się więcej o możliwościach z Helping Hands.',
+    'contact_subtitle' => 'Masz pytania? Jesteśmy tutaj, aby pomóc. Skontaktuj się z nami dzisiaj, aby dowiedzieć się więcej o możliwościach z Violetta Home Care Limited.',
     'contact_information' => 'Informacje Kontaktowe',
     'phone' => 'Telefon',
     'email' => 'Email',
@@ -112,7 +112,7 @@ return [
     'average_rating' => 'Średnia Ocena',
 
     // Footer
-    'about_text' => 'Helping Hands dedykuje się łączeniu opiekunów pełnych współczucia z rodzinami potrzebującymi wysokiej jakości opieki całodobowej. Jesteśmy zaangażowani w budowanie satysfakcjonujących karier przy jednoczesnym zapewnieniu wyjątkowych usług opiekuńczych.',
+    'about_text' => 'Violetta Home Care Limited dedykuje się łączeniu opiekunów pełnych współczucia z rodzinami potrzebującymi wysokiej jakości opieki całodobowej. Jesteśmy zaangażowani w budowanie satysfakcjonujących karier przy jednoczesnym zapewnieniu wyjątkowych usług opiekuńczych.',
     'cqc_registered' => 'Zarejestrowany w CQC',
     'quick_links' => 'Szybkie Linki',
     'contact_info' => 'Informacje Kontaktowe',

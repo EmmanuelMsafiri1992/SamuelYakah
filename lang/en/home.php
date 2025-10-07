@@ -13,7 +13,7 @@ return [
     'support' => 'Support',
 
     // Benefits Section
-    'benefits_title' => 'Why Choose Helping Hands?',
+    'benefits_title' => 'Why Choose Violetta Home Care Limited?',
     'benefits_subtitle' => 'Exceptional benefits and support to help you thrive in your career',
 
     // Jobs Section
@@ -60,7 +60,7 @@ return [
 
     // Testimonials
     'testimonials_title' => 'Success Stories from Our Carers',
-    'testimonials_subtitle' => 'Hear from our team members about their experiences and career growth with Helping Hands',
+    'testimonials_subtitle' => 'Hear from our team members about their experiences and career growth with Violetta Home Care Limited',
     'years_experience' => 'years experience',
 
     // FAQ
@@ -73,9 +73,9 @@ return [
 
     // Application Steps
     'application_journey' => 'Your Journey to a Rewarding Career',
-    'application_steps' => 'Follow our simple 5-step process to start your career with Helping Hands',
+    'application_steps' => 'Follow our simple 5-step process to start your career with Violetta Home Care Limited',
     'ready_started' => 'Ready to Get Started?',
-    'join_carers' => 'Join hundreds of carers who have already started their rewarding career with Helping Hands. We\'ll support you every step of the way.',
+    'join_carers' => 'Join hundreds of carers who have already started their rewarding career with Violetta Home Care Limited. We\'ll support you every step of the way.',
     'start_application' => 'Start Your Application',
 
     // Resources
@@ -87,7 +87,7 @@ return [
 
     // Contact
     'contact_title' => 'Get In Touch',
-    'contact_subtitle' => 'Have questions? We\'re here to help. Contact us today to learn more about opportunities with Helping Hands.',
+    'contact_subtitle' => 'Have questions? We\'re here to help. Contact us today to learn more about opportunities with Violetta Home Care Limited.',
     'contact_information' => 'Contact Information',
     'phone' => 'Phone',
     'email' => 'Email',
@@ -112,7 +112,7 @@ return [
     'average_rating' => 'Average Rating',
 
     // Footer
-    'about_text' => 'Helping Hands is dedicated to connecting compassionate caregivers with families who need quality live-in care. We\'re committed to building rewarding careers while providing exceptional care services.',
+    'about_text' => 'Violetta Home Care Limited is dedicated to connecting compassionate caregivers with families who need quality live-in care. We\'re committed to building rewarding careers while providing exceptional care services.',
     'cqc_registered' => 'CQC Registered',
     'quick_links' => 'Quick Links',
     'contact_info' => 'Contact Info',

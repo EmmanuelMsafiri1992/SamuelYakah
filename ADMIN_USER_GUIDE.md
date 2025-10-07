@@ -1,4 +1,4 @@
-# Admin User Guide - Helping Hands Recruitment Platform
+# Admin User Guide - Violetta Home Care Limited Recruitment Platform
 
 ## Table of Contents
 1. [Getting Started](#getting-started)
@@ -238,7 +238,7 @@ SEO (Search Engine Optimization) settings help your website rank better on Googl
 
 **For English Tab (🇬🇧):**
 - **Meta Title** - Page title shown in search results (50-60 characters)
-  - Example: "Live-in Care Jobs UK | Helping Hands Recruitment"
+  - Example: "Live-in Care Jobs UK | Violetta Home Care Limited Recruitment"
 - **Meta Description** - Brief page summary (150-160 characters)
   - Example: "Find rewarding live-in care positions across the UK. Competitive salary, full training, and excellent benefits. Apply today!"
 - **Meta Keywords** - Relevant search terms (comma-separated)
@@ -259,7 +259,7 @@ SEO (Search Engine Optimization) settings help your website rank better on Googl
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Helping Hands",
+    "name": "Violetta Home Care Limited",
     "description": "Leading care recruitment agency",
     "url": "https://yourwebsite.com"
   }

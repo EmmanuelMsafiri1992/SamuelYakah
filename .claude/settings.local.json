@@ -1,9 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(php artisan route:list:*)",
       "Bash(php artisan:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run dev:*)",
+      "Bash(net start:*)",
+      "Bash(findstr:*)",
+      "WebFetch(domain:astutehomecare.co.uk)",
+      "Bash(curl -L \"https://images.pexels.com/photos/3768131/pexels-photo-3768131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1\" -o \"C:\\laragon\\www\\SamuelYakah\\public\\images\\care-team.jpg\")",
+      "Bash(curl -L \"https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1\" -o \"C:\\laragon\\www\\SamuelYakah\\public\\images\\careers.jpg\")",
+      "Bash(curl -L \"https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1\" -o \"C:\\laragon\\www\\SamuelYakah\\public\\images\\home-care.jpg\")",
+      "Bash(dir:*)",
+      "Bash(del \"C:\\laragon\\www\\SamuelYakah\\database\\migrations\\0001_01_01_000002_create_jobs_table.php\")"
     ],
     "deny": [],
     "ask": []

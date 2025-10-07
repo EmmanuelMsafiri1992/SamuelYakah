@@ -64,11 +64,11 @@ const socialLinks = [
                                 </svg>
                             </div>
                         </div>
-                        <h3 class="text-lg font-bold bg-gradient-to-r from-[#4FE1D6] to-[#2563eb] bg-clip-text text-transparent">Helping Hands</h3>
+                        <h3 class="text-lg font-bold bg-gradient-to-r from-[#4FE1D6] to-[#2563eb] bg-clip-text text-transparent">Violetta Home Care Limited</h3>
                     </div>
                     <h4 class="text-white font-semibold text-lg">About Us</h4>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                        Helping Hands is dedicated to connecting compassionate caregivers with families who need quality live-in care. We're committed to building rewarding careers while providing exceptional care services.
+                        Violetta Home Care Limited is dedicated to connecting compassionate caregivers with families who need quality live-in care. We're committed to building rewarding careers while providing exceptional care services.
                     </p>
                     <!-- CQC Registered Badge -->
                     <div class="flex items-center space-x-2 pt-2">
@@ -173,7 +173,7 @@ const socialLinks = [
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                     <div class="text-gray-400 text-sm text-center md:text-left">
-                        <p>&copy; {{ currentYear }} Helping Hands. All rights reserved.</p>
+                        <p>&copy; {{ currentYear }} Violetta Home Care Limited. All rights reserved.</p>
                     </div>
 
                     <div class="flex flex-wrap justify-center gap-6 text-sm">
