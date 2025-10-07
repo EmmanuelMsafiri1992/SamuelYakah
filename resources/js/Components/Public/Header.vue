@@ -14,6 +14,16 @@ const props = defineProps({
     }
 });
 
+// Helper function to get setting value based on current locale
+const getSetting = (key, defaultValue = '') => {
+    if (!props.settings || !props.settings[key]) {
+        return defaultValue;
+    }
+
+    const valueKey = `value_${props.currentLocale}`;
+    return props.settings[key][valueKey] || props.settings[key].value_en || defaultValue;
+};
+
 const mobileMenuOpen = ref(false);
 const isScrolled = ref(false);
 
@@ -44,13 +54,13 @@ onUnmounted(() => {
 });
 
 const navigationItems = [
-    { name: 'Home', href: '/' },
-    { name: 'Live-in Care', href: '/live-in-care' },
-    { name: 'Care Funding', href: '/care-funding' },
-    { name: 'Resources', href: '/resources' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'News', href: '/news' },
-    { name: 'Contact', href: '/contact' }
+    { name: getSetting('menu_home', 'Home'), href: '/' },
+    { name: getSetting('menu_live_in_care', 'Live-in Care'), href: '/live-in-care' },
+    { name: getSetting('menu_care_funding', 'Care Funding'), href: '/care-funding' },
+    { name: getSetting('menu_resources', 'Resources'), href: '/resources' },
+    { name: getSetting('menu_careers', 'Careers'), href: '/careers' },
+    { name: getSetting('menu_news', 'News'), href: '/news' },
+    { name: getSetting('menu_contact', 'Contact'), href: '/contact' }
 ];
 </script>
 
@@ -74,8 +84,8 @@ const navigationItems = [
                             </div>
                         </div>
                         <div class="hidden sm:block">
-                            <h1 class="text-xl font-bold bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] bg-clip-text text-transparent">Violetta Home Care Limited</h1>
-                            <p class="text-xs text-gray-600">Care with Compassion</p>
+                            <h1 class="text-xl font-bold bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] bg-clip-text text-transparent">{{ getSetting('site_name', 'Violetta Home Care Limited') }}</h1>
+                            <p class="text-xs text-gray-600">{{ getSetting('site_tagline', 'Care with Compassion') }}</p>
                         </div>
                     </Link>
                 </div>
@@ -84,14 +94,25 @@ const navigationItems = [
                 <div class="flex items-center space-x-4">
                     <!-- Phone Number -->
                     <div class="hidden sm:block text-right">
-                        <p class="text-xs text-gray-600 mb-0.5">Call our friendly team today on</p>
+                        <p class="text-xs text-gray-600 mb-0.5">{{ getSetting('contact_phone_display', 'Call our friendly team today on') }}</p>
                         <a
-                            href="tel:+442032391227"
+                            :href="'tel:' + getSetting('contact_phone', '+442032391227').replace(/\s/g, '')"
                             class="text-2xl font-bold text-[#2563eb] hover:text-[#1e40af] transition-colors duration-200 tracking-tight"
                         >
-                            +44 20 3239 1227
+                            {{ getSetting('contact_phone', '+44 20 3239 1227') }}
                         </a>
                     </div>
+
+                    <!-- Admin Login Button -->
+                    <Link
+                        href="/login"
+                        class="hidden md:flex items-center space-x-2 px-4 py-2 border-2 border-[#2563eb] text-[#2563eb] hover:bg-[#2563eb] hover:text-white font-semibold rounded-full transition-all duration-200"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        <span>Login</span>
+                    </Link>
 
                     <!-- Language Switcher -->
                     <LanguageSwitcher :currentLocale="currentLocale" />
@@ -102,7 +123,7 @@ const navigationItems = [
                         class="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] hover:from-[#1e40af] hover:to-[#3dccc1] text-white font-semibold rounded-full transition-all duration-200 shadow-lg hover:shadow-xl"
                         aria-label="Toggle menu"
                     >
-                        <span class="hidden sm:inline">Menu</span>
+                        <span class="hidden sm:inline">{{ getSetting('menu_button_text', 'Menu') }}</span>
                         <svg
                             class="w-5 h-5"
                             fill="none"
@@ -157,7 +178,7 @@ const navigationItems = [
                             </div>
                         </div>
                         <div class="hidden sm:block">
-                            <h1 class="text-lg font-bold bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] bg-clip-text text-transparent">Violetta Home Care</h1>
+                            <h1 class="text-lg font-bold bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] bg-clip-text text-transparent">{{ getSetting('site_name', 'Violetta Home Care') }}</h1>
                         </div>
                     </Link>
 

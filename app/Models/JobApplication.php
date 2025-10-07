@@ -7,25 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 class JobApplication extends Model
 {
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'care_job_id',
+        'job_title',
+        'full_name',
         'email',
         'phone',
-        'address',
-        'nationality',
-        'date_of_birth',
         'experience',
-        'qualifications',
-        'has_right_to_work',
-        'has_driving_license',
-        'cv_path',
-        'status',
-        'notes',
+        'cover_letter',
+        'cv_file',
+        'status'
     ];
 
     protected $casts = [
-        'date_of_birth' => 'date',
-        'has_right_to_work' => 'boolean',
-        'has_driving_license' => 'boolean',
+        'care_job_id' => 'integer'
     ];
+
+    public function careJob()
+    {
+        return $this->belongsTo(CareJob::class, 'care_job_id');
+    }
 }

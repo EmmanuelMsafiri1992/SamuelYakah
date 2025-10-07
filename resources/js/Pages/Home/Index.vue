@@ -15,6 +15,16 @@ const props = defineProps({
     }
 });
 
+// Helper function to get setting value based on current locale
+const getSetting = (key, defaultValue = '') => {
+    if (!props.settings || !props.settings[key]) {
+        return defaultValue;
+    }
+
+    const valueKey = `value_${props.currentLocale}`;
+    return props.settings[key][valueKey] || props.settings[key].value_en || defaultValue;
+};
+
 const selectedJob = ref(null);
 const showApplicationModal = ref(false);
 
@@ -117,19 +127,19 @@ const submitApplication = () => {
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div class="max-w-4xl mx-auto text-center">
                         <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-white leading-tight">
-                            Live-in care, your way.
+                            {{ getSetting('home_hero_title', 'Live-in care, your way.') }}
                         </h1>
                         <p class="text-xl sm:text-2xl text-white/95 mb-4">
-                            Violetta Home Care provides a trusted, nurse-led live-in care service
+                            {{ getSetting('home_hero_subtitle', 'Violetta Home Care provides a trusted, nurse-led live-in care service') }}
                         </p>
                         <p class="text-lg sm:text-xl text-white/90 mb-8">
-                            Serving London and surrounding areas with compassionate, personalized care
+                            {{ getSetting('home_hero_description', 'Serving London and surrounding areas with compassionate, personalized care') }}
                         </p>
                         <Link
                             href="/live-in-care"
                             class="inline-flex items-center px-8 py-4 bg-white text-[#2563eb] font-semibold rounded-full hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl text-lg"
                         >
-                            Find out more
+                            {{ getSetting('home_hero_cta', 'Find out more') }}
                         </Link>
                     </div>
                 </div>
@@ -153,27 +163,27 @@ const submitApplication = () => {
                         <!-- Text Content -->
                         <div class="order-1 lg:order-2">
                             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
-                                Why choose us?
+                                {{ getSetting('home_why_choose_title', 'Why choose us?') }}
                             </h2>
                             <p class="text-lg text-gray-700 mb-4 leading-relaxed">
-                                At Violetta Home Care, we understand that choosing care is a deeply personal decision. That's why we focus on carefully matching our dedicated care professionals with each client's unique needs and personality.
+                                {{ getSetting('home_why_choose_p1', 'At Violetta Home Care, we understand that choosing care is a deeply personal decision. That\'s why we focus on carefully matching our dedicated care professionals with each client\'s unique needs and personality.') }}
                             </p>
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                                Our nurse-led approach ensures the highest quality of care, while our commitment to personalized service means you or your loved one will receive attention that truly makes a difference.
+                                {{ getSetting('home_why_choose_p2', 'Our nurse-led approach ensures the highest quality of care, while our commitment to personalized service means you or your loved one will receive attention that truly makes a difference.') }}
                             </p>
                             <div class="flex items-center space-x-3 mb-6">
                                 <svg class="w-6 h-6 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                 </svg>
-                                <a href="tel:+442032391227" class="text-xl font-bold text-[#2563eb] hover:text-[#1e40af]">
-                                    +44 20 3239 1227
+                                <a :href="'tel:' + getSetting('contact_phone', '+442032391227').replace(/\s/g, '')" class="text-xl font-bold text-[#2563eb] hover:text-[#1e40af]">
+                                    {{ getSetting('contact_phone', '+44 20 3239 1227') }}
                                 </a>
                             </div>
                             <Link
                                 href="/live-in-care"
                                 class="inline-flex items-center text-[#2563eb] hover:text-[#1e40af] font-semibold text-lg group"
                             >
-                                Learn about our services
+                                {{ getSetting('home_why_choose_cta', 'Learn about our services') }}
                                 <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 </svg>
@@ -190,13 +200,13 @@ const submitApplication = () => {
                         <!-- Text Content -->
                         <div>
                             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
-                                A care career like no other
+                                {{ getSetting('home_career_title', 'A care career like no other') }}
                             </h2>
                             <p class="text-lg text-gray-700 mb-4 leading-relaxed">
-                                Join our team of dedicated care professionals and embark on a rewarding career that truly makes a difference in people's lives.
+                                {{ getSetting('home_career_p1', 'Join our team of dedicated care professionals and embark on a rewarding career that truly makes a difference in people\'s lives.') }}
                             </p>
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                                We offer competitive pay, comprehensive training, and ongoing support. Whether you're experienced in care or looking to start a new career path, we provide everything you need to succeed.
+                                {{ getSetting('home_career_p2', 'We offer competitive pay, comprehensive training, and ongoing support. Whether you\'re experienced in care or looking to start a new career path, we provide everything you need to succeed.') }}
                             </p>
                             <div class="mb-6">
                                 <div class="flex items-start space-x-3 mb-3">
@@ -222,7 +232,7 @@ const submitApplication = () => {
                                 href="/careers"
                                 class="inline-flex items-center text-[#2563eb] hover:text-[#1e40af] font-semibold text-lg group"
                             >
-                                Explore a care career with us
+                                {{ getSetting('home_career_cta', 'Explore career opportunities') }}
                                 <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 </svg>

@@ -76,11 +76,7 @@ class HomeController extends Controller
             });
 
         // Fetch settings
-        $settings = Setting::all()
-            ->mapWithKeys(function ($setting) use ($locale) {
-                $value = $locale === 'pl' ? $setting->value_pl : $setting->value_en;
-                return [$setting->key => $value];
-            });
+        $settings = Setting::all()->keyBy('key');
 
         return Inertia::render('Home/Index', [
             'sections' => $sections,

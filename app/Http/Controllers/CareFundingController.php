@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Setting;
+use App\Traits\LoadsSettings;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CareFundingController extends Controller
 {
+    use LoadsSettings;
+
     public function index()
     {
-        $settings = Setting::all()->keyBy('key');
-
         return Inertia::render('CareFunding/Index', [
-            'settings' => $settings,
+            'settings' => $this->getSettings(),
+            'currentLocale' => $this->getCurrentLocale(),
         ]);
     }
 }

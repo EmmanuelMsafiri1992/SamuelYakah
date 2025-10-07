@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CareJob;
+use App\Models\NewsArticle;
 use App\Models\JobApplication;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,36 +17,48 @@ class DashboardController extends Controller
      */
     public function index(): Response
     {
-        // Total applications count
+        // Applications statistics
         $totalApplications = JobApplication::count();
+        $pendingApplications = JobApplication::where('status', 'pending')->count();
+        $reviewingApplications = JobApplication::where('status', 'reviewing')->count();
+        $approvedApplications = JobApplication::where('status', 'approved')->count();
+        $rejectedApplications = JobApplication::where('status', 'rejected')->count();
 
-        // Recent applications (last 10)
-        $recentApplications = JobApplication::latest()
-            ->take(10)
-            ->get();
+        // Jobs statistics
+        $totalJobPositions = CareJob::count();
+        $activeJobPositions = CareJob::where('is_active', true)->count();
 
-        // Statistics by status
-        $statistics = [
-            'total' => $totalApplications,
-            'pending' => JobApplication::where('status', 'pending')->count(),
-            'reviewing' => JobApplication::where('status', 'reviewing')->count(),
-            'approved' => JobApplication::where('status', 'approved')->count(),
-            'rejected' => JobApplication::where('status', 'rejected')->count(),
+        // News statistics
+        $totalNews = NewsArticle::count();
+        $publishedNews = NewsArticle::where('is_published', true)->count();
+
+        // Combine all statistics
+        $stats = [
+            'totalApplications' => $totalApplications,
+            'pendingApplications' => $pendingApplications,
+            'reviewingApplications' => $reviewingApplications,
+            'approvedApplications' => $approvedApplications,
+            'rejectedApplications' => $rejectedApplications,
+            'totalJobPositions' => $totalJobPositions,
+            'activeJobPositions' => $activeJobPositions,
+            'totalNews' => $totalNews,
+            'publishedNews' => $publishedNews,
+            'totalSections' => 0, // Placeholder - add model when available
+            'totalBenefits' => 0, // Placeholder - add model when available
+            'trainingModules' => 0, // Placeholder - add model when available
+            'activeFaqs' => 0, // Placeholder - add model when available
+            'applicationsThisMonth' => JobApplication::whereMonth('created_at', now()->month)->count(),
+            'applicationsToday' => JobApplication::whereDate('created_at', today())->count(),
         ];
 
-        // Applications by month (current year)
-        $applicationsByMonth = JobApplication::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
-            ->whereYear('created_at', date('Y'))
-            ->groupBy('month')
-            ->orderBy('month')
-            ->pluck('count', 'month')
-            ->toArray();
+        // Recent applications (last 5)
+        $recentApplications = JobApplication::latest()
+            ->take(5)
+            ->get();
 
         return Inertia::render('Admin/Dashboard/Index', [
-            'totalApplications' => $totalApplications,
+            'stats' => $stats,
             'recentApplications' => $recentApplications,
-            'statistics' => $statistics,
-            'applicationsByMonth' => $applicationsByMonth,
         ]);
     }
 }

@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Setting;
+use App\Traits\LoadsSettings;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ContactController extends Controller
 {
+    use LoadsSettings;
+
     public function index()
     {
-        $settings = Setting::all()->keyBy('key');
-
         return Inertia::render('Contact/Index', [
-            'settings' => $settings,
+            'settings' => $this->getSettings(),
+            'currentLocale' => $this->getCurrentLocale(),
         ]);
     }
 }

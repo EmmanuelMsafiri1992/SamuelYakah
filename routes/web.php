@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\BenefitController;
+use App\Http\Controllers\Admin\CareJobController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\JobApplicationController as AdminJobApplicationController;
 use App\Http\Controllers\Admin\JobPositionController;
+use App\Http\Controllers\Admin\NewsArticleController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\SeoSettingController;
 use App\Http\Controllers\Admin\SettingController;
@@ -17,7 +19,6 @@ use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LiveInCareController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResourcesController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,27 +38,24 @@ Route::post('/apply', [JobApplicationController::class, 'store'])->name('job-app
 // Language switcher
 Route::post('/language/switch', [LanguageController::class, 'switch'])->name('language.switch');
 
-// Admin routes group with auth middleware
-Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(function () {
+// Admin routes group with auth and admin middleware
+Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Content Management
+    Route::resource('care-jobs', CareJobController::class);
+    Route::resource('news-articles', NewsArticleController::class);
+    Route::resource('job-applications', AdminJobApplicationController::class)->only(['index', 'show', 'update', 'destroy']);
 
     // Resource routes
     Route::resource('sections', SectionController::class);
     Route::resource('faqs', FaqController::class);
     Route::resource('benefits', BenefitController::class);
     Route::resource('training-modules', TrainingModuleController::class);
-    Route::resource('job-applications', AdminJobApplicationController::class);
     Route::resource('job-positions', JobPositionController::class);
     Route::resource('settings', SettingController::class);
     Route::resource('seo-settings', SeoSettingController::class);
-});
-
-// Profile routes
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
