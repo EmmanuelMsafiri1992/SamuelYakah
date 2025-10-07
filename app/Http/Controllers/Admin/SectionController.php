@@ -15,14 +15,42 @@ class SectionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $sections = Section::with('translations')
-            ->orderBy('order')
-            ->get();
+        $query = Section::with('translations')
+            ->orderBy($request->get('sort', 'order'), $request->get('direction', 'asc'));
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->whereHas('translations', function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%");
+            });
+        }
+
+        $sections = $query->get()->map(function ($section) {
+            $enTranslation = $section->translations->firstWhere('locale', 'en');
+            return [
+                'id' => $section->id,
+                'identifier' => $section->key,
+                'title' => $enTranslation?->title ?? 'N/A',
+                'order' => $section->order,
+                'is_active' => $section->active,
+            ];
+        });
 
         return Inertia::render('Admin/Sections/Index', [
-            'sections' => $sections,
+            'sections' => [
+                'data' => $sections,
+                'total' => $sections->count(),
+                'from' => 1,
+                'to' => $sections->count(),
+                'links' => [],
+            ],
+            'filters' => [
+                'search' => $request->get('search'),
+                'sort' => $request->get('sort', 'order'),
+                'direction' => $request->get('direction', 'asc'),
+            ],
         ]);
     }
 

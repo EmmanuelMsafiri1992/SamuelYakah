@@ -1,15 +1,16 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
     currentLocale: {
         type: String,
-        default: 'en'
+        default: 'pl'
     }
 });
 
 const isOpen = ref(false);
+const dropdownRef = ref(null);
 
 const languages = [
     { code: 'en', name: 'English', flag: '🇬🇧' },
@@ -17,7 +18,7 @@ const languages = [
 ];
 
 const currentLanguage = computed(() =>
-    languages.find(lang => lang.code === props.currentLocale) || languages[0]
+    languages.find(lang => lang.code === props.currentLocale) || languages[1]
 );
 
 const switchLanguage = (locale) => {
@@ -27,8 +28,8 @@ const switchLanguage = (locale) => {
     }
 
     router.post(route('language.switch'), { locale }, {
-        preserveState: true,
-        preserveScroll: true,
+        preserveState: false,
+        preserveScroll: false,
         onSuccess: () => {
             isOpen.value = false;
         }
@@ -42,10 +43,24 @@ const toggleDropdown = () => {
 const closeDropdown = () => {
     isOpen.value = false;
 };
+
+const handleClickOutside = (event) => {
+    if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+        closeDropdown();
+    }
+};
+
+onMounted(() => {
+    document.addEventListener('click', handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+    document.removeEventListener('click', handleClickOutside);
+});
 </script>
 
 <template>
-    <div class="relative" v-click-away="closeDropdown">
+    <div class="relative" ref="dropdownRef">
         <!-- Main Button -->
         <button
             @click="toggleDropdown"

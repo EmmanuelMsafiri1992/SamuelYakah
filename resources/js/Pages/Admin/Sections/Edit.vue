@@ -1,57 +1,53 @@
 <template>
-  <AdminLayout :title="`Edit Section: ${section.title}`">
-    <div class="max-w-3xl">
+  <AdminLayout title="Edit Section">
+    <div class="max-w-4xl">
       <div class="bg-white rounded-lg shadow p-6">
         <form @submit.prevent="submit">
           <div class="space-y-6">
+            <!-- Key (Identifier) -->
             <div>
-              <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+              <label for="key" class="block text-sm font-medium text-gray-700">Section Key</label>
               <input
-                id="title"
-                v-model="form.title"
+                id="key"
+                v-model="form.key"
                 type="text"
+                placeholder="e.g., hero, about, benefits"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                :class="{ 'border-red-500': form.errors.title }"
+                :class="{ 'border-red-500': form.errors.key }"
               />
-              <p v-if="form.errors.title" class="mt-1 text-sm text-red-600">
-                {{ form.errors.title }}
-              </p>
-            </div>
-
-            <div>
-              <label for="identifier" class="block text-sm font-medium text-gray-700">Identifier</label>
-              <input
-                id="identifier"
-                v-model="form.identifier"
-                type="text"
-                placeholder="e.g., hero, about, contact"
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                :class="{ 'border-red-500': form.errors.identifier }"
-              />
-              <p v-if="form.errors.identifier" class="mt-1 text-sm text-red-600">
-                {{ form.errors.identifier }}
+              <p v-if="form.errors.key" class="mt-1 text-sm text-red-600">
+                {{ form.errors.key }}
               </p>
               <p class="mt-1 text-sm text-gray-500">
-                Unique identifier for this section (lowercase, no spaces)
+                Unique identifier for this section (lowercase, no spaces, use hyphens)
               </p>
             </div>
 
+            <!-- Type -->
             <div>
-              <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
-              <textarea
-                id="content"
-                v-model="form.content"
-                rows="6"
+              <label for="type" class="block text-sm font-medium text-gray-700">Section Type</label>
+              <select
+                id="type"
+                v-model="form.type"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                :class="{ 'border-red-500': form.errors.content }"
-              />
-              <p v-if="form.errors.content" class="mt-1 text-sm text-red-600">
-                {{ form.errors.content }}
+                :class="{ 'border-red-500': form.errors.type }"
+              >
+                <option value="hero">Hero</option>
+                <option value="about">About</option>
+                <option value="benefits">Benefits</option>
+                <option value="training">Training</option>
+                <option value="process">Process</option>
+                <option value="cta">Call to Action</option>
+                <option value="content">General Content</option>
+              </select>
+              <p v-if="form.errors.type" class="mt-1 text-sm text-red-600">
+                {{ form.errors.type }}
               </p>
             </div>
 
+            <!-- Order -->
             <div>
-              <label for="order" class="block text-sm font-medium text-gray-700">Order</label>
+              <label for="order" class="block text-sm font-medium text-gray-700">Display Order</label>
               <input
                 id="order"
                 v-model.number="form.order"
@@ -65,18 +61,108 @@
               </p>
             </div>
 
+            <!-- Active Status -->
             <div class="flex items-center">
               <input
-                id="is_active"
-                v-model="form.is_active"
+                id="active"
+                v-model="form.active"
                 type="checkbox"
                 class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
-              <label for="is_active" class="ml-2 block text-sm text-gray-900">
-                Active
+              <label for="active" class="ml-2 block text-sm text-gray-900">
+                Active (visible on website)
               </label>
             </div>
 
+            <!-- Translations Tabs -->
+            <div class="border-t pt-6">
+              <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8">
+                  <button
+                    type="button"
+                    @click="activeTab = 'en'"
+                    :class="[
+                      activeTab === 'en'
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                      'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+                    ]"
+                  >
+                    English
+                  </button>
+                  <button
+                    type="button"
+                    @click="activeTab = 'pl'"
+                    :class="[
+                      activeTab === 'pl'
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                      'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+                    ]"
+                  >
+                    Polski
+                  </button>
+                </nav>
+              </div>
+
+              <!-- English Translation -->
+              <div v-show="activeTab === 'en'" class="mt-6 space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Title (English)</label>
+                  <input
+                    v-model="form.translations[0].title"
+                    type="text"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Subtitle (English)</label>
+                  <input
+                    v-model="form.translations[0].subtitle"
+                    type="text"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Content (English)</label>
+                  <textarea
+                    v-model="form.translations[0].content"
+                    rows="6"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <!-- Polish Translation -->
+              <div v-show="activeTab === 'pl'" class="mt-6 space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Title (Polski)</label>
+                  <input
+                    v-model="form.translations[1].title"
+                    type="text"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Subtitle (Polski)</label>
+                  <input
+                    v-model="form.translations[1].subtitle"
+                    type="text"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Content (Polski)</label>
+                  <textarea
+                    v-model="form.translations[1].content"
+                    rows="6"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
             <div class="flex items-center justify-end space-x-3 pt-6 border-t">
               <Link
                 :href="route('admin.sections.index')"
@@ -89,7 +175,8 @@
                 :disabled="form.processing"
                 class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors disabled:opacity-50"
               >
-                Update Section
+                <span v-if="form.processing">Updating...</span>
+                <span v-else>Update Section</span>
               </button>
             </div>
           </div>
@@ -102,17 +189,39 @@
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue'
 import { Link, useForm } from '@inertiajs/vue3'
+import { ref } from 'vue'
 
 const props = defineProps({
   section: Object
 })
 
+const activeTab = ref('en')
+
+// Find translations or create empty ones
+const enTranslation = props.section.translations?.find(t => t.locale === 'en') || {
+  id: null,
+  locale: 'en',
+  title: '',
+  subtitle: '',
+  content: '',
+  meta: null
+}
+
+const plTranslation = props.section.translations?.find(t => t.locale === 'pl') || {
+  id: null,
+  locale: 'pl',
+  title: '',
+  subtitle: '',
+  content: '',
+  meta: null
+}
+
 const form = useForm({
-  title: props.section.title,
-  identifier: props.section.identifier,
-  content: props.section.content,
+  key: props.section.key,
+  type: props.section.type,
   order: props.section.order,
-  is_active: props.section.is_active
+  active: props.section.active,
+  translations: [enTranslation, plTranslation]
 })
 
 const submit = () => {

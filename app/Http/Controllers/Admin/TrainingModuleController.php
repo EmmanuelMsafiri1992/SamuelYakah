@@ -14,12 +14,43 @@ class TrainingModuleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $trainingModules = TrainingModule::orderBy('order')->get();
+        $query = TrainingModule::query()->orderBy($request->get('sort', 'order'), $request->get('direction', 'asc'));
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('title_en', 'like', "%{$search}%")
+                  ->orWhere('title_pl', 'like', "%{$search}%")
+                  ->orWhere('description_en', 'like', "%{$search}%")
+                  ->orWhere('description_pl', 'like', "%{$search}%");
+            });
+        }
+
+        $trainingModules = $query->get()->map(function ($module) {
+            return [
+                'id' => $module->id,
+                'title' => $module->title_en,
+                'description' => $module->description_en,
+                'order' => $module->order,
+                'is_active' => $module->active,
+            ];
+        });
 
         return Inertia::render('Admin/TrainingModules/Index', [
-            'trainingModules' => $trainingModules,
+            'trainingModules' => [
+                'data' => $trainingModules,
+                'total' => $trainingModules->count(),
+                'from' => 1,
+                'to' => $trainingModules->count(),
+                'links' => [],
+            ],
+            'filters' => [
+                'search' => $request->get('search'),
+                'sort' => $request->get('sort', 'order'),
+                'direction' => $request->get('direction', 'asc'),
+            ],
         ]);
     }
 

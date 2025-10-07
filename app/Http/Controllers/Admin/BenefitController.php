@@ -14,12 +14,44 @@ class BenefitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $benefits = Benefit::orderBy('order')->get();
+        $query = Benefit::query()->orderBy($request->get('sort', 'order'), $request->get('direction', 'asc'));
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('title_en', 'like', "%{$search}%")
+                  ->orWhere('title_pl', 'like', "%{$search}%")
+                  ->orWhere('description_en', 'like', "%{$search}%")
+                  ->orWhere('description_pl', 'like', "%{$search}%");
+            });
+        }
+
+        $benefits = $query->get()->map(function ($benefit) {
+            return [
+                'id' => $benefit->id,
+                'title' => $benefit->title_en,
+                'description' => $benefit->description_en,
+                'icon' => $benefit->icon,
+                'order' => $benefit->order,
+                'is_active' => $benefit->active,
+            ];
+        });
 
         return Inertia::render('Admin/Benefits/Index', [
-            'benefits' => $benefits,
+            'benefits' => [
+                'data' => $benefits,
+                'total' => $benefits->count(),
+                'from' => 1,
+                'to' => $benefits->count(),
+                'links' => [],
+            ],
+            'filters' => [
+                'search' => $request->get('search'),
+                'sort' => $request->get('sort', 'order'),
+                'direction' => $request->get('direction', 'asc'),
+            ],
         ]);
     }
 

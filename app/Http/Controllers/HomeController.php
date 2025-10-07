@@ -88,6 +88,7 @@ class HomeController extends Controller
             'benefits' => $benefits,
             'trainingModules' => $trainingModules,
             'settings' => $settings,
+            'currentLocale' => $locale,
         ]);
     }
 }

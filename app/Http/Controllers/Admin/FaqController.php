@@ -14,12 +14,43 @@ class FaqController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $faqs = Faq::orderBy('order')->get();
+        $query = Faq::query()->orderBy($request->get('sort', 'order'), $request->get('direction', 'asc'));
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('question_en', 'like', "%{$search}%")
+                  ->orWhere('question_pl', 'like', "%{$search}%")
+                  ->orWhere('answer_en', 'like', "%{$search}%")
+                  ->orWhere('answer_pl', 'like', "%{$search}%");
+            });
+        }
+
+        $faqs = $query->get()->map(function ($faq) {
+            return [
+                'id' => $faq->id,
+                'question' => $faq->question_en,
+                'answer' => $faq->answer_en,
+                'order' => $faq->order,
+                'is_active' => $faq->active,
+            ];
+        });
 
         return Inertia::render('Admin/Faqs/Index', [
-            'faqs' => $faqs,
+            'faqs' => [
+                'data' => $faqs,
+                'total' => $faqs->count(),
+                'from' => 1,
+                'to' => $faqs->count(),
+                'links' => [],
+            ],
+            'filters' => [
+                'search' => $request->get('search'),
+                'sort' => $request->get('sort', 'order'),
+                'direction' => $request->get('direction', 'asc'),
+            ],
         ]);
     }
 

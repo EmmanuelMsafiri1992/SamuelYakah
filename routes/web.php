@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\BenefitController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\JobApplicationController as AdminJobApplicationController;
+use App\Http\Controllers\Admin\JobPositionController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\Admin\SeoSettingController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TrainingModuleController;
 use App\Http\Controllers\HomeController;
@@ -34,7 +36,9 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
     Route::resource('benefits', BenefitController::class);
     Route::resource('training-modules', TrainingModuleController::class);
     Route::resource('job-applications', AdminJobApplicationController::class);
+    Route::resource('job-positions', JobPositionController::class);
     Route::resource('settings', SettingController::class);
+    Route::resource('seo-settings', SeoSettingController::class);
 });
 
 // Profile routes

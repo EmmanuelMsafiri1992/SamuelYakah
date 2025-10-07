@@ -15,7 +15,8 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = session('locale', config('app.locale'));
+        // Default to Polish if no session is set
+        $locale = session('locale', 'pl');
 
         // Get locale from URL parameter if present
         if ($request->has('lang') && in_array($request->lang, ['en', 'pl'])) {

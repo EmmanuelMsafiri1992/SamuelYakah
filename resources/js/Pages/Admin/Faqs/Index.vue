@@ -1,123 +1,214 @@
 <template>
-  <AdminLayout title="FAQs">
-    <div class="mb-6 flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <input
-          v-model="search"
-          type="text"
-          placeholder="Search FAQs..."
-          class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          @input="handleSearch"
-        />
-      </div>
-      <Link
-        :href="route('admin.faqs.create')"
-        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors"
-      >
-        Add New FAQ
-      </Link>
-    </div>
-
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <th
-              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-              @click="sortBy('id')"
-            >
-              ID
-              <span v-if="sortField === 'id'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-            </th>
-            <th
-              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-              @click="sortBy('question')"
-            >
-              Question
-              <span v-if="sortField === 'question'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-            </th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Answer
-            </th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Order
-            </th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Status
-            </th>
-            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-          <tr v-for="faq in faqs.data" :key="faq.id">
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-              {{ faq.id }}
-            </td>
-            <td class="px-6 py-4 text-sm font-medium text-gray-900">
-              {{ faq.question }}
-            </td>
-            <td class="px-6 py-4 text-sm text-gray-500">
-              {{ truncate(faq.answer, 80) }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {{ faq.order }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span
-                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
-                :class="{
-                  'bg-green-100 text-green-800': faq.is_active,
-                  'bg-gray-100 text-gray-800': !faq.is_active
-                }"
-              >
-                {{ faq.is_active ? 'Active' : 'Inactive' }}
-              </span>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-              <Link
-                :href="route('admin.faqs.edit', faq.id)"
-                class="text-indigo-600 hover:text-indigo-900 mr-3"
-              >
-                Edit
-              </Link>
-              <button
-                @click="deleteFaq(faq.id)"
-                class="text-red-600 hover:text-red-900"
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-          <tr v-if="faqs.data.length === 0">
-            <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500">
-              No FAQs found.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Pagination -->
-      <div v-if="faqs.links && faqs.links.length > 3" class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
-        <div class="flex justify-between items-center">
-          <div class="text-sm text-gray-700">
-            Showing {{ faqs.from }} to {{ faqs.to }} of {{ faqs.total }} results
+  <AdminLayout :title="$page.props.translations.admin.faqs">
+    <div class="space-y-6">
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-blue-100 text-sm font-medium">{{ $page.props.translations.admin.faqs }}</p>
+              <p class="text-3xl font-bold mt-2">{{ faqs.total }}</p>
+            </div>
+            <div class="bg-white bg-opacity-20 rounded-lg p-3">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
           </div>
-          <div class="flex space-x-1">
-            <Link
-              v-for="(link, index) in faqs.links"
-              :key="index"
-              :href="link.url"
-              :class="{
-                'bg-blue-500 text-white': link.active,
-                'bg-white text-gray-700 hover:bg-gray-50': !link.active,
-                'cursor-not-allowed opacity-50': !link.url
-              }"
-              class="px-3 py-2 border border-gray-300 text-sm font-medium rounded-md"
-              :disabled="!link.url"
-              v-html="link.label"
-            />
+        </div>
+
+        <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-green-100 text-sm font-medium">{{ $page.props.translations.admin.active }}</p>
+              <p class="text-3xl font-bold mt-2">{{ activeCount }}</p>
+            </div>
+            <div class="bg-white bg-opacity-20 rounded-lg p-3">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl shadow-lg p-6 text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-100 text-sm font-medium">{{ $page.props.translations.admin.inactive }}</p>
+              <p class="text-3xl font-bold mt-2">{{ inactiveCount }}</p>
+            </div>
+            <div class="bg-white bg-opacity-20 rounded-lg p-3">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Header & Search -->
+      <div class="bg-white rounded-xl shadow-lg p-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div class="flex-1">
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <input
+                v-model="search"
+                type="text"
+                :placeholder="$page.props.translations.admin.search + ' FAQs...'"
+                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                @input="handleSearch"
+              />
+            </div>
+          </div>
+          <Link
+            :href="route('admin.faqs.create')"
+            class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium rounded-lg transition-all duration-200 hover:shadow-lg"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            {{ $page.props.translations.admin.add_new_faq }}
+          </Link>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
+              <tr>
+                <th
+                  class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider cursor-pointer hover:text-blue-600 transition-colors"
+                  @click="sortBy('id')"
+                >
+                  <div class="flex items-center space-x-1">
+                    <span>{{ $page.props.translations.admin.id }}</span>
+                    <svg v-if="sortField === 'id'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path v-if="sortDirection === 'asc'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                      <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </th>
+                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Question
+                </th>
+                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Answer
+                </th>
+                <th
+                  class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider cursor-pointer hover:text-blue-600 transition-colors"
+                  @click="sortBy('order')"
+                >
+                  <div class="flex items-center space-x-1">
+                    <span>{{ $page.props.translations.admin.order }}</span>
+                    <svg v-if="sortField === 'order'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path v-if="sortDirection === 'asc'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                      <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </th>
+                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  {{ $page.props.translations.admin.status }}
+                </th>
+                <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  {{ $page.props.translations.admin.actions }}
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr v-for="faq in faqs.data" :key="faq.id" class="hover:bg-blue-50 transition-colors duration-150">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  #{{ faq.id }}
+                </td>
+                <td class="px-6 py-4 text-sm font-medium text-gray-900 max-w-md">
+                  {{ faq.question }}
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-600 max-w-md">
+                  {{ truncate(faq.answer, 80) }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                  <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    {{ faq.order }}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold"
+                    :class="{
+                      'bg-green-100 text-green-800': faq.is_active,
+                      'bg-gray-100 text-gray-800': !faq.is_active
+                    }"
+                  >
+                    {{ faq.is_active ? $page.props.translations.admin.active : $page.props.translations.admin.inactive }}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <div class="flex items-center justify-end space-x-3">
+                    <Link
+                      :href="route('admin.faqs.edit', faq.id)"
+                      class="inline-flex items-center px-3 py-1.5 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-all duration-200 hover:shadow-md"
+                    >
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                      {{ $page.props.translations.admin.edit }}
+                    </Link>
+                    <button
+                      @click="deleteFaq(faq.id)"
+                      class="inline-flex items-center px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-all duration-200 hover:shadow-md"
+                    >
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                      {{ $page.props.translations.admin.delete }}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr v-if="faqs.data.length === 0">
+                <td colspan="6" class="px-6 py-12">
+                  <div class="text-center">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">{{ $page.props.translations.admin.no_results }}</h3>
+                    <p class="mt-1 text-sm text-gray-500">Get started by creating a new FAQ.</p>
+                    <div class="mt-6">
+                      <Link
+                        :href="route('admin.faqs.create')"
+                        class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:shadow-lg transition-all duration-200"
+                      >
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        {{ $page.props.translations.admin.add_new_faq }}
+                      </Link>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div v-if="faqs.total > 0" class="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-t border-gray-200">
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="text-sm text-gray-700">
+              <span class="font-medium">{{ $page.props.translations.admin.showing }}</span>
+              {{ faqs.from }}
+              <span class="font-medium">{{ $page.props.translations.admin.to }}</span>
+              {{ faqs.to }}
+              <span class="font-medium">{{ $page.props.translations.admin.of }}</span>
+              {{ faqs.total }}
+              <span class="font-medium">{{ $page.props.translations.admin.results }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -128,7 +219,7 @@
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue'
 import { Link, router } from '@inertiajs/vue3'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps({
   faqs: Object,
@@ -138,6 +229,14 @@ const props = defineProps({
 const search = ref(props.filters?.search || '')
 const sortField = ref(props.filters?.sort || 'order')
 const sortDirection = ref(props.filters?.direction || 'asc')
+
+const activeCount = computed(() => {
+  return props.faqs.data.filter(faq => faq.is_active).length
+})
+
+const inactiveCount = computed(() => {
+  return props.faqs.data.filter(faq => !faq.is_active).length
+})
 
 const handleSearch = () => {
   router.get(route('admin.faqs.index'), {
@@ -169,12 +268,13 @@ const sortBy = (field) => {
 }
 
 const deleteFaq = (id) => {
-  if (confirm('Are you sure you want to delete this FAQ?')) {
+  if (confirm($page.props.translations.admin.confirm_delete || 'Are you sure you want to delete this FAQ?')) {
     router.delete(route('admin.faqs.destroy', id))
   }
 }
 
 const truncate = (text, length) => {
+  if (!text) return ''
   if (text.length <= length) return text
   return text.substring(0, length) + '...'
 }

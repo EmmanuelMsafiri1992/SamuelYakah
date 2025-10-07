@@ -1,6 +1,6 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Head, Link, usePage } from '@inertiajs/vue3';
+import { ref, computed } from 'vue';
 import Header from '@/Components/Public/Header.vue';
 import Footer from '@/Components/Public/Footer.vue';
 
@@ -46,6 +46,7 @@ const props = defineProps({
 const openFaqIndex = ref(null);
 const searchLocation = ref('');
 const currentTestimonial = ref(0);
+const jobsExpanded = ref(false);
 
 const toggleFaq = (index) => {
     openFaqIndex.value = openFaqIndex.value === index ? null : index;
@@ -130,48 +131,51 @@ const defaultBenefits = [
     }
 ];
 
-const dutyCategories = [
-    {
-        category: 'Personal Care',
-        icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
-        duties: [
-            'Assisting with bathing, dressing, and grooming',
-            'Supporting mobility and transfers',
-            'Continence care with dignity and respect',
-            'Maintaining personal hygiene standards'
-        ]
-    },
-    {
-        category: 'Health & Medication',
-        icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01',
-        duties: [
-            'Administering medication as prescribed',
-            'Monitoring health conditions',
-            'Recording vital signs and observations',
-            'Liaising with healthcare professionals'
-        ]
-    },
-    {
-        category: 'Daily Living Support',
-        icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
-        duties: [
-            'Preparing nutritious meals and snacks',
-            'Light housekeeping and laundry',
-            'Shopping and errands',
-            'Maintaining a safe, clean environment'
-        ]
-    },
-    {
-        category: 'Companionship & Activities',
-        icon: 'M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-        duties: [
-            'Providing emotional support and conversation',
-            'Accompanying to appointments and outings',
-            'Facilitating hobbies and interests',
-            'Encouraging social interaction'
-        ]
-    }
-];
+const dutyCategories = computed(() => {
+    const t = usePage().props?.translations?.home || {};
+    return [
+        {
+            category: t.personal_care || 'Personal Care',
+            icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+            duties: [
+                t.personal_care_bathing || 'Assisting with bathing, dressing, and grooming',
+                t.personal_care_mobility || 'Supporting mobility and transfers',
+                t.personal_care_continence || 'Continence care with dignity and respect',
+                t.personal_care_hygiene || 'Maintaining personal hygiene standards'
+            ]
+        },
+        {
+            category: t.health_medication || 'Health & Medication',
+            icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01',
+            duties: [
+                t.health_administering || 'Administering medication as prescribed',
+                t.health_monitoring || 'Monitoring health conditions',
+                t.health_recording || 'Recording vital signs and observations',
+                t.health_liaising || 'Liaising with healthcare professionals'
+            ]
+        },
+        {
+            category: t.daily_living || 'Daily Living Support',
+            icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+            duties: [
+                t.daily_meals || 'Preparing nutritious meals and snacks',
+                t.daily_housekeeping || 'Light housekeeping and laundry',
+                t.daily_shopping || 'Shopping and errands',
+                t.daily_environment || 'Maintaining a safe, clean environment'
+            ]
+        },
+        {
+            category: t.companionship || 'Companionship & Activities',
+            icon: 'M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+            duties: [
+                t.companionship_emotional || 'Providing emotional support and conversation',
+                t.companionship_appointments || 'Accompanying to appointments and outings',
+                t.companionship_hobbies || 'Facilitating hobbies and interests',
+                t.companionship_social || 'Encouraging social interaction'
+            ]
+        }
+    ];
+});
 
 const defaultTrainingModules = [
     {
@@ -395,16 +399,16 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                         </div>
 
                         <p class="text-xl md:text-2xl font-medium text-teal-100 mb-3">
-                            Compassionate Care, Rewarding Careers
+                            {{ $page.props.translations.home.hero_title }}
                         </p>
                     </div>
 
                     <div class="text-center mb-12">
                         <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                            {{ sections.hero_title || 'Start Your Journey in Live-In Care' }}
+                            {{ sections.hero_title || $page.props.translations.home.hero_subtitle }}
                         </h2>
                         <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto mb-8">
-                            {{ sections.hero_subtitle || 'Join a team that values compassion, professionalism, and personal growth. Make a meaningful difference in people\'s lives while building a rewarding career with excellent benefits.' }}
+                            {{ sections.hero_subtitle || $page.props.translations.home.hero_description }}
                         </p>
 
                         <div class="flex flex-col sm:flex-row justify-center gap-4">
@@ -412,7 +416,7 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                                 :href="route('job-applications.create')"
                                 class="inline-flex items-center justify-center px-8 py-4 bg-teal-400 text-blue-900 font-bold rounded-lg hover:bg-teal-300 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                             >
-                                Apply Now
+                                {{ $page.props.translations.home.apply_now }}
                                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                 </svg>
@@ -421,7 +425,7 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                                 href="#jobs"
                                 class="inline-flex items-center justify-center px-8 py-4 bg-white bg-opacity-20 backdrop-blur-sm text-white font-bold rounded-lg hover:bg-opacity-30 transition-all duration-200 shadow-lg border-2 border-white border-opacity-30"
                             >
-                                Browse Jobs
+                                {{ $page.props.translations.home.browse_jobs }}
                                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
@@ -433,19 +437,19 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
                         <div class="text-center bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4">
                             <div class="text-3xl md:text-4xl font-bold text-teal-300 mb-1">£600-£950</div>
-                            <div class="text-sm text-blue-100">Weekly Salary</div>
+                            <div class="text-sm text-blue-100">{{ $page.props.translations.home.weekly_salary }}</div>
                         </div>
                         <div class="text-center bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4">
                             <div class="text-3xl md:text-4xl font-bold text-teal-300 mb-1">100%</div>
-                            <div class="text-sm text-blue-100">Free Training</div>
+                            <div class="text-sm text-blue-100">{{ $page.props.translations.home.free_training }}</div>
                         </div>
                         <div class="text-center bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4">
                             <div class="text-3xl md:text-4xl font-bold text-teal-300 mb-1">2 Days</div>
-                            <div class="text-sm text-blue-100">Off Per Week</div>
+                            <div class="text-sm text-blue-100">{{ $page.props.translations.home.off_per_week }}</div>
                         </div>
                         <div class="text-center bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4">
                             <div class="text-3xl md:text-4xl font-bold text-teal-300 mb-1">24/7</div>
-                            <div class="text-sm text-blue-100">Support</div>
+                            <div class="text-sm text-blue-100">{{ $page.props.translations.home.support }}</div>
                         </div>
                     </div>
                 </div>
@@ -459,98 +463,183 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
             </div>
         </section>
 
-        <!-- Job Search Section -->
-        <section id="jobs" class="py-16 lg:py-20 bg-white">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Job Search Section with Toggle -->
+        <section id="jobs" class="py-16 lg:py-20 bg-gradient-to-br from-blue-50 via-white to-teal-50 relative overflow-hidden">
+            <!-- Background Decorative Elements -->
+            <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-teal-200/20 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-teal-200/20 to-blue-200/20 rounded-full blur-3xl"></div>
+
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="max-w-6xl mx-auto">
+                    <!-- Attractive Header with Toggle Button -->
                     <div class="text-center mb-12">
                         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                            Find Your Perfect Role
+                            {{ $page.props.translations.home.jobs_title }}
                         </h2>
-                        <p class="text-xl text-gray-600">
-                            Search available positions in your preferred location
+                        <p class="text-xl text-gray-600 mb-8">
+                            {{ $page.props.translations.home.jobs_subtitle }}
                         </p>
-                    </div>
 
-                    <!-- Search Bar -->
-                    <div class="max-w-3xl mx-auto mb-12">
-                        <div class="bg-gray-50 rounded-xl shadow-lg p-6">
-                            <form @submit.prevent="searchJobs" class="flex flex-col md:flex-row gap-4">
-                                <div class="flex-1">
-                                    <div class="relative">
-                                        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        <input
-                                            v-model="searchLocation"
-                                            type="text"
-                                            placeholder="Enter location (e.g., London, Manchester)"
-                                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-                                        />
-                                    </div>
-                                </div>
-                                <button
-                                    type="submit"
-                                    class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center"
-                                >
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                    Search Jobs
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Featured Jobs -->
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Featured Positions</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div
-                                v-for="job in displayedJobs"
-                                :key="job.id"
-                                class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 hover:border-blue-300"
+                        <!-- Toggle Button with Image Preview -->
+                        <button
+                            @click="jobsExpanded = !jobsExpanded"
+                            class="group relative inline-flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-1"
+                        >
+                            <svg
+                                class="w-6 h-6 transition-transform duration-300"
+                                :class="{ 'rotate-180': jobsExpanded }"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
                             >
-                                <div class="flex items-start justify-between mb-4">
-                                    <div class="flex-1">
-                                        <h4 class="text-lg font-bold text-gray-900 mb-2">{{ job.title }}</h4>
-                                        <div class="flex items-center text-gray-600 text-sm mb-1">
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            </svg>
-                                            {{ job.location }}
-                                        </div>
-                                    </div>
-                                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full">
-                                        {{ job.type }}
-                                    </span>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                            <span class="text-lg">
+                                {{ jobsExpanded ? 'Hide Job Search & Positions' : 'Explore Available Positions' }}
+                            </span>
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Preview Images when Collapsed -->
+                    <div v-if="!jobsExpanded" class="mb-8">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                            <div class="relative group overflow-hidden rounded-xl shadow-lg">
+                                <img
+                                    src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=400&h=300&fit=crop"
+                                    alt="Caring professional"
+                                    class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent flex items-end p-4">
+                                    <p class="text-white font-semibold text-sm">Professional Care</p>
                                 </div>
-
-                                <p class="text-gray-600 text-sm mb-4">{{ job.description }}</p>
-
-                                <div class="flex items-center justify-between pt-4 border-t border-gray-200">
-                                    <div class="flex items-center text-blue-600 font-bold">
-                                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        {{ job.salary }}
-                                    </div>
-                                    <span class="text-sm text-gray-500">{{ job.posted }}</span>
+                            </div>
+                            <div class="relative group overflow-hidden rounded-xl shadow-lg">
+                                <img
+                                    src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=300&fit=crop"
+                                    alt="Team support"
+                                    class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-teal-900/70 to-transparent flex items-end p-4">
+                                    <p class="text-white font-semibold text-sm">Team Support</p>
                                 </div>
-
-                                <Link
-                                    :href="route('job-applications.create')"
-                                    class="mt-4 w-full inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200"
-                                >
-                                    Apply Now
-                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                    </svg>
-                                </Link>
+                            </div>
+                            <div class="relative group overflow-hidden rounded-xl shadow-lg">
+                                <img
+                                    src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=400&h=300&fit=crop"
+                                    alt="Career growth"
+                                    class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent flex items-end p-4">
+                                    <p class="text-white font-semibold text-sm">Career Growth</p>
+                                </div>
+                            </div>
+                            <div class="relative group overflow-hidden rounded-xl shadow-lg">
+                                <img
+                                    src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop"
+                                    alt="Rewarding work"
+                                    class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-teal-900/70 to-transparent flex items-end p-4">
+                                    <p class="text-white font-semibold text-sm">Rewarding Work</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Collapsible Content -->
+                    <transition
+                        enter-active-class="transition-all duration-500 ease-out"
+                        enter-from-class="opacity-0 transform scale-95 -translate-y-8"
+                        enter-to-class="opacity-100 transform scale-100 translate-y-0"
+                        leave-active-class="transition-all duration-300 ease-in"
+                        leave-from-class="opacity-100 transform scale-100 translate-y-0"
+                        leave-to-class="opacity-0 transform scale-95 -translate-y-8"
+                    >
+                        <div v-if="jobsExpanded" class="space-y-12">
+                            <!-- Search Bar -->
+                            <div class="max-w-3xl mx-auto">
+                                <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
+                                    <form @submit.prevent="searchJobs" class="flex flex-col md:flex-row gap-4">
+                                        <div class="flex-1">
+                                            <div class="relative">
+                                                <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                </svg>
+                                                <input
+                                                    v-model="searchLocation"
+                                                    type="text"
+                                                    :placeholder="$page.props.translations.home.enter_location"
+                                                    class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-200 transition-all text-lg"
+                                                />
+                                            </div>
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            class="px-8 py-4 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center"
+                                        >
+                                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
+                                            {{ $page.props.translations.home.search_jobs }}
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Featured Jobs -->
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">{{ $page.props.translations.home.featured_positions }}</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div
+                                        v-for="job in displayedJobs"
+                                        :key="job.id"
+                                        class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 hover:border-blue-300 group hover:-translate-y-2"
+                                    >
+                                        <div class="flex items-start justify-between mb-4">
+                                            <div class="flex-1">
+                                                <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{{ job.title }}</h4>
+                                                <div class="flex items-center text-gray-600 text-sm mb-1">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                    </svg>
+                                                    {{ job.location }}
+                                                </div>
+                                            </div>
+                                            <span class="px-3 py-1 bg-gradient-to-r from-teal-100 to-blue-100 text-teal-700 text-xs font-semibold rounded-full">
+                                                {{ job.type === 'Full-time' ? $page.props.translations.home.full_time : job.type }}
+                                            </span>
+                                        </div>
+
+                                        <p class="text-gray-600 text-sm mb-4">{{ job.description }}</p>
+
+                                        <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                                            <div class="flex items-center text-blue-600 font-bold">
+                                                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                {{ job.salary }}
+                                            </div>
+                                            <span class="text-sm text-gray-500">{{ job.posted }}</span>
+                                        </div>
+
+                                        <Link
+                                            :href="route('job-applications.create')"
+                                            class="mt-4 w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+                                        >
+                                            {{ $page.props.translations.home.apply_now }}
+                                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                            </svg>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
                 </div>
             </div>
         </section>
@@ -560,10 +649,10 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        {{ sections.benefits_title || 'Why Choose Helping Hands?' }}
+                        {{ sections.benefits_title || $page.props.translations.home.benefits_title }}
                     </h2>
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                        {{ sections.benefits_subtitle || 'Exceptional benefits and support to help you thrive in your career' }}
+                        {{ sections.benefits_subtitle || $page.props.translations.home.benefits_subtitle }}
                     </p>
                 </div>
 
@@ -571,14 +660,21 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                     <div
                         v-for="(benefit, index) in displayedBenefits"
                         :key="index"
-                        class="bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 p-8 border-t-4 border-teal-400 group hover:-translate-y-2"
+                        class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-100 group hover:-translate-y-2 relative overflow-hidden"
                     >
-                        <div class="w-16 h-16 bg-gradient-to-br from-blue-100 to-teal-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="benefit.icon" />
+                        <!-- Animated Background Gradient -->
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-teal-400 to-blue-600 group-hover:h-2 transition-all duration-300"></div>
+
+                        <!-- Icon Container with stronger contrast -->
+                        <div class="relative w-20 h-20 bg-gradient-to-br from-blue-600 to-teal-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" :d="benefit.icon" />
                             </svg>
+                            <!-- Decorative dots -->
+                            <div class="absolute -top-1 -right-1 w-3 h-3 bg-teal-400 rounded-full animate-pulse"></div>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">{{ benefit.title }}</h3>
+
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">{{ benefit.title }}</h3>
                         <p class="text-gray-600 leading-relaxed">{{ benefit.description }}</p>
                     </div>
                 </div>
@@ -591,10 +687,10 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-12">
                         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                            {{ sections.duties_title || 'Your Role & Responsibilities' }}
+                            {{ sections.duties_title || $page.props.translations.home.duties_title }}
                         </h2>
                         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                            {{ sections.duties_subtitle || 'A comprehensive overview of what you\'ll be doing as a live-in carer' }}
+                            {{ sections.duties_subtitle || $page.props.translations.home.duties_subtitle }}
                         </p>
                     </div>
 
@@ -641,13 +737,13 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                         </svg>
-                        CQC Approved Training
+                        {{ $page.props.translations.home.training_title }}
                     </div>
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                        {{ sections.training_title || 'Comprehensive Training & Development' }}
+                        {{ sections.training_title || $page.props.translations.home.training_subtitle }}
                     </h2>
                     <p class="text-xl text-blue-100 max-w-3xl mx-auto">
-                        {{ sections.training_subtitle || 'We invest in your professional development with industry-leading training programs' }}
+                        {{ sections.training_subtitle || $page.props.translations.home.training_description }}
                     </p>
                 </div>
 
@@ -687,9 +783,9 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
 
                     <div class="mt-12 text-center">
                         <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-8 max-w-3xl mx-auto border border-white border-opacity-20">
-                            <h3 class="text-2xl font-bold mb-4">Career Progression Pathway</h3>
+                            <h3 class="text-2xl font-bold mb-4">{{ $page.props.translations.home.career_progression }}</h3>
                             <p class="text-blue-100 mb-6">
-                                Our structured development program supports your journey from entry-level carer to senior positions, with clear milestones and continuous learning opportunities.
+                                {{ $page.props.translations.home.career_progression_text }}
                             </p>
                             <div class="flex flex-wrap justify-center gap-3">
                                 <span class="px-4 py-2 bg-teal-400 text-blue-900 rounded-full font-semibold text-sm">Live-in Carer</span>
@@ -717,10 +813,10 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        Success Stories from Our Carers
+                        {{ $page.props.translations.home.testimonials_title }}
                     </h2>
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Hear from our team members about their experiences and career growth with Helping Hands
+                        {{ $page.props.translations.home.testimonials_subtitle }}
                     </p>
                 </div>
 
@@ -767,15 +863,15 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
         </section>
 
         <!-- FAQ Section -->
-        <section id="faq" class="py-16 lg:py-24 bg-gray-50">
+        <section id="faqs" class="py-16 lg:py-24 bg-gray-50">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-4xl mx-auto">
                     <div class="text-center mb-12">
                         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                            {{ sections.faq_title || 'Frequently Asked Questions' }}
+                            {{ sections.faq_title || $page.props.translations.home.faq_title }}
                         </h2>
                         <p class="text-xl text-gray-600">
-                            {{ sections.faq_subtitle || 'Everything you need to know about starting your career in live-in care' }}
+                            {{ sections.faq_subtitle || $page.props.translations.home.faq_subtitle }}
                         </p>
                     </div>
 
@@ -820,8 +916,8 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                     </div>
 
                     <div class="mt-12 text-center bg-white rounded-xl shadow-md p-8">
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Still have questions?</h3>
-                        <p class="text-gray-600 mb-6">Our recruitment team is here to help you with any queries you might have.</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $page.props.translations.home.still_questions }}</h3>
+                        <p class="text-gray-600 mb-6">{{ $page.props.translations.home.recruitment_help }}</p>
                         <div class="flex flex-col sm:flex-row justify-center gap-4">
                             <a
                                 href="tel:+441234567890"
@@ -830,7 +926,7 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                 </svg>
-                                Call Us
+                                {{ $page.props.translations.home.call_us }}
                             </a>
                             <a
                                 href="mailto:info@helpinghands.com"
@@ -839,7 +935,7 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
-                                Email Us
+                                {{ $page.props.translations.home.email_us }}
                             </a>
                         </div>
                     </div>
@@ -852,10 +948,10 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        {{ sections.process_title || 'Your Journey to a Rewarding Career' }}
+                        {{ sections.process_title || $page.props.translations.home.application_journey }}
                     </h2>
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                        {{ sections.process_subtitle || 'Follow our simple 5-step process to start your career with Helping Hands' }}
+                        {{ sections.process_subtitle || $page.props.translations.home.application_steps }}
                     </p>
                 </div>
 
@@ -896,15 +992,15 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
 
                     <div class="text-center mt-12">
                         <div class="bg-gradient-to-br from-blue-50 to-teal-50 rounded-xl p-8 max-w-2xl mx-auto mb-8">
-                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Ready to Get Started?</h3>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ $page.props.translations.home.ready_started }}</h3>
                             <p class="text-gray-700 mb-6">
-                                Join hundreds of carers who have already started their rewarding career with Helping Hands. We'll support you every step of the way.
+                                {{ $page.props.translations.home.join_carers }}
                             </p>
                             <Link
                                 :href="route('job-applications.create')"
                                 class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                             >
-                                Start Your Application
+                                {{ $page.props.translations.home.start_application }}
                                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                 </svg>
@@ -920,10 +1016,10 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        Latest Resources & Insights
+                        {{ $page.props.translations.home.resources_title }}
                     </h2>
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Stay informed with our latest articles, tips, and educational content for carers
+                        {{ $page.props.translations.home.resources_subtitle }}
                     </p>
                 </div>
 
@@ -969,7 +1065,7 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                                 href="#"
                                 class="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
                             >
-                                Read More
+                                {{ $page.props.translations.home.read_more }}
                                 <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                 </svg>
@@ -983,11 +1079,163 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                         href="#"
                         class="inline-flex items-center justify-center px-6 py-3 bg-white hover:bg-gray-50 text-blue-600 font-semibold rounded-lg border-2 border-blue-600 transition-all duration-200"
                     >
-                        View All Resources
+                        {{ $page.props.translations.home.view_all_resources }}
                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 lg:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{{ $page.props.translations.home.contact_title }}</h2>
+                        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                            {{ $page.props.translations.home.contact_subtitle }}
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <!-- Contact Information -->
+                        <div class="space-y-8">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-6">{{ $page.props.translations.home.contact_information }}</h3>
+                                <div class="space-y-6">
+                                    <!-- Phone -->
+                                    <div class="flex items-start space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-500 rounded-lg flex items-center justify-center">
+                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-lg font-semibold text-gray-900 mb-1">{{ $page.props.translations.home.phone }}</h4>
+                                            <a href="tel:+442032391227" class="text-blue-600 hover:text-blue-700 font-medium">+44 20 3239 1227</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="flex items-start space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-500 rounded-lg flex items-center justify-center">
+                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-lg font-semibold text-gray-900 mb-1">{{ $page.props.translations.home.email }}</h4>
+                                            <a href="mailto:info@helpinghands.com" class="text-blue-600 hover:text-blue-700 font-medium">info@helpinghands.com</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Address -->
+                                    <div class="flex items-start space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-500 rounded-lg flex items-center justify-center">
+                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-lg font-semibold text-gray-900 mb-1">{{ $page.props.translations.home.office_address }}</h4>
+                                            <p class="text-gray-600">123 Care Street<br>London, UK<br>SW1A 1AA</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Working Hours -->
+                                    <div class="flex items-start space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-500 rounded-lg flex items-center justify-center">
+                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-lg font-semibold text-gray-900 mb-1">{{ $page.props.translations.home.working_hours }}</h4>
+                                            <p class="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM<br>Sunday: Closed</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quick Apply Card -->
+                            <div class="bg-gradient-to-br from-blue-50 to-teal-50 rounded-xl p-6 border border-blue-100">
+                                <h4 class="text-xl font-bold text-gray-900 mb-3">{{ $page.props.translations.home.ready_join }}</h4>
+                                <p class="text-gray-600 mb-4">{{ $page.props.translations.home.skip_contact_form }}</p>
+                                <Link
+                                    :href="route('job-applications.create')"
+                                    class="inline-flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+                                >
+                                    {{ $page.props.translations.home.apply_now }}
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </Link>
+                            </div>
+                        </div>
+
+                        <!-- Contact Form -->
+                        <div class="bg-gray-50 rounded-2xl p-8 shadow-lg">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-6">{{ $page.props.translations.home.send_message }}</h3>
+                            <form class="space-y-6">
+                                <div>
+                                    <label for="contact-name" class="block text-sm font-semibold text-gray-700 mb-2">{{ $page.props.translations.home.your_name }}</label>
+                                    <input
+                                        type="text"
+                                        id="contact-name"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                        placeholder="John Doe"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="contact-email" class="block text-sm font-semibold text-gray-700 mb-2">{{ $page.props.translations.home.email_address }}</label>
+                                    <input
+                                        type="email"
+                                        id="contact-email"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                        placeholder="john@example.com"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="contact-phone" class="block text-sm font-semibold text-gray-700 mb-2">{{ $page.props.translations.home.phone_number }}</label>
+                                    <input
+                                        type="tel"
+                                        id="contact-phone"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                        placeholder="+44 20 1234 5678"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="contact-message" class="block text-sm font-semibold text-gray-700 mb-2">{{ $page.props.translations.home.message }}</label>
+                                    <textarea
+                                        id="contact-message"
+                                        rows="4"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                        placeholder="Tell us how we can help you..."
+                                    ></textarea>
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center"
+                                >
+                                    {{ $page.props.translations.home.send }}
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1009,11 +1257,11 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                     </div>
 
                     <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                        Start Your Journey Today
+                        {{ $page.props.translations.home.final_cta_title }}
                     </h2>
 
                     <p class="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
-                        Join a team that values your contribution and supports your growth. Make a real difference in people's lives while building a rewarding, stable career.
+                        {{ $page.props.translations.home.final_cta_text }}
                     </p>
 
                     <div class="flex flex-col sm:flex-row justify-center gap-4 mb-12">
@@ -1021,7 +1269,7 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                             :href="route('job-applications.create')"
                             class="inline-flex items-center justify-center px-8 py-4 bg-teal-400 hover:bg-teal-300 text-blue-900 font-bold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg"
                         >
-                            Apply Now
+                            {{ $page.props.translations.home.apply_now }}
                             <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                             </svg>
@@ -1033,7 +1281,7 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                             <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                             </svg>
-                            Call: 01234 567890
+                            {{ $page.props.translations.home.call }}: 01234 567890
                         </a>
                     </div>
 
@@ -1041,19 +1289,19 @@ const displayedBlogPosts = props.blogPosts.length > 0 ? props.blogPosts : defaul
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white border-opacity-20">
                         <div class="text-center">
                             <div class="text-3xl font-bold text-teal-300 mb-1">1000+</div>
-                            <div class="text-sm text-blue-100">Happy Carers</div>
+                            <div class="text-sm text-blue-100">{{ $page.props.translations.home.happy_carers }}</div>
                         </div>
                         <div class="text-center">
                             <div class="text-3xl font-bold text-teal-300 mb-1">5000+</div>
-                            <div class="text-sm text-blue-100">Clients Supported</div>
+                            <div class="text-sm text-blue-100">{{ $page.props.translations.home.clients_supported }}</div>
                         </div>
                         <div class="text-center">
                             <div class="text-3xl font-bold text-teal-300 mb-1">15+</div>
-                            <div class="text-sm text-blue-100">Years Experience</div>
+                            <div class="text-sm text-blue-100">{{ $page.props.translations.home.years_exp }}</div>
                         </div>
                         <div class="text-center">
                             <div class="text-3xl font-bold text-teal-300 mb-1">4.9/5</div>
-                            <div class="text-sm text-blue-100">Average Rating</div>
+                            <div class="text-sm text-blue-100">{{ $page.props.translations.home.average_rating }}</div>
                         </div>
                     </div>
                 </div>

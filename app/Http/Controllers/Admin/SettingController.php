@@ -14,12 +14,44 @@ class SettingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $settings = Setting::all()->groupBy('group');
+        $query = Setting::query()->orderBy($request->get('sort', 'key'), $request->get('direction', 'asc'));
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('key', 'like', "%{$search}%")
+                  ->orWhere('value_en', 'like', "%{$search}%")
+                  ->orWhere('value_pl', 'like', "%{$search}%")
+                  ->orWhere('group', 'like', "%{$search}%");
+            });
+        }
+
+        $settings = $query->get()->map(function ($setting) {
+            return [
+                'id' => $setting->id,
+                'key' => $setting->key,
+                'value' => $setting->value_en,
+                'type' => $setting->type,
+                'description' => $setting->group ?? 'General',
+                'group' => $setting->group,
+            ];
+        });
 
         return Inertia::render('Admin/Settings/Index', [
-            'settings' => $settings,
+            'settings' => [
+                'data' => $settings,
+                'total' => $settings->count(),
+                'from' => 1,
+                'to' => $settings->count(),
+                'links' => [],
+            ],
+            'filters' => [
+                'search' => $request->get('search'),
+                'sort' => $request->get('sort', 'key'),
+                'direction' => $request->get('direction', 'asc'),
+            ],
         ]);
     }
 

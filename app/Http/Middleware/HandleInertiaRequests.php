@@ -29,16 +29,23 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $locale = app()->getLocale();
+
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
             ],
-            'locale' => app()->getLocale(),
-            'translations' => function () {
+            'currentLocale' => $locale,
+            'locale' => $locale,
+            'translations' => function () use ($locale) {
                 return [
-                    'en' => trans('messages', [], 'en'),
-                    'pl' => trans('messages', [], 'pl'),
+                    'messages' => [
+                        'en' => trans('messages', [], 'en'),
+                        'pl' => trans('messages', [], 'pl'),
+                    ],
+                    'admin' => trans('admin', [], $locale),
+                    'home' => trans('home', [], $locale),
                 ];
             },
         ];
