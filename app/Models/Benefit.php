@@ -11,6 +11,8 @@ class Benefit extends Model
         'description_en',
         'title_pl',
         'description_pl',
+        'title_nl',
+        'description_nl',
         'icon',
         'order',
         'active',

@@ -31,44 +31,44 @@ const showApplicationModal = ref(false);
 const jobListings = [
     {
         id: 1,
-        title: 'Live-in Care Professional',
-        location: 'London & Surrounding Areas',
-        type: 'Full-time',
-        salary: '£750 - £950 per week',
-        description: 'Join our team as a live-in care professional. Provide compassionate, personalized care to clients in their own homes.',
+        title: getSetting('home_job_1_title', 'Live-in Care Professional'),
+        location: getSetting('home_job_1_location', 'London & Surrounding Areas'),
+        type: getSetting('home_job_1_type', 'Full-time'),
+        salary: getSetting('home_job_1_salary', '£750 - £950 per week'),
+        description: getSetting('home_job_1_description', 'Join our team as a live-in care professional. Provide compassionate, personalized care to clients in their own homes.'),
         requirements: [
-            'Experience in care (preferred but not essential)',
-            'Compassionate and patient nature',
-            'Good communication skills',
-            'Right to work in the UK'
+            getSetting('home_job_1_req_1', 'Experience in care (preferred but not essential)'),
+            getSetting('home_job_1_req_2', 'Compassionate and patient nature'),
+            getSetting('home_job_1_req_3', 'Good communication skills'),
+            getSetting('home_job_1_req_4', 'Right to work in the UK')
         ]
     },
     {
         id: 2,
-        title: 'Senior Care Professional',
-        location: 'London',
-        type: 'Full-time',
-        salary: '£850 - £1000 per week',
-        description: 'Experienced care professional needed to provide specialized care for clients with complex needs.',
+        title: getSetting('home_job_2_title', 'Senior Care Professional'),
+        location: getSetting('home_job_2_location', 'London'),
+        type: getSetting('home_job_2_type', 'Full-time'),
+        salary: getSetting('home_job_2_salary', '£850 - £1000 per week'),
+        description: getSetting('home_job_2_description', 'Experienced care professional needed to provide specialized care for clients with complex needs.'),
         requirements: [
-            'Minimum 2 years care experience',
-            'NVQ Level 2 or equivalent',
-            'Experience with complex care needs',
-            'Excellent references'
+            getSetting('home_job_2_req_1', 'Minimum 2 years care experience'),
+            getSetting('home_job_2_req_2', 'NVQ Level 2 or equivalent'),
+            getSetting('home_job_2_req_3', 'Experience with complex care needs'),
+            getSetting('home_job_2_req_4', 'Excellent references')
         ]
     },
     {
         id: 3,
-        title: 'Weekend Care Professional',
-        location: 'London & Surrounding Areas',
-        type: 'Part-time',
-        salary: '£150 - £180 per day',
-        description: 'Weekend care professional needed to provide respite care and support to our existing clients.',
+        title: getSetting('home_job_3_title', 'Weekend Care Professional'),
+        location: getSetting('home_job_3_location', 'London & Surrounding Areas'),
+        type: getSetting('home_job_3_type', 'Part-time'),
+        salary: getSetting('home_job_3_salary', '£150 - £180 per day'),
+        description: getSetting('home_job_3_description', 'Weekend care professional needed to provide respite care and support to our existing clients.'),
         requirements: [
-            'Flexible and reliable',
-            'Care experience preferred',
-            'Available for weekend shifts',
-            'Own transport preferred'
+            getSetting('home_job_3_req_1', 'Flexible and reliable'),
+            getSetting('home_job_3_req_2', 'Care experience preferred'),
+            getSetting('home_job_3_req_3', 'Available for weekend shifts'),
+            getSetting('home_job_3_req_4', 'Own transport preferred')
         ]
     }
 ];
@@ -105,7 +105,7 @@ const submitApplication = () => {
 </script>
 
 <template>
-    <Head title="Violetta Home Care Limited - Compassionate Live-in Care Services" />
+    <Head title="Sunrise & Sunset Home Care - Compassionate Live-in Care Services" />
 
     <div class="min-h-screen flex flex-col bg-white">
         <Header :settings="settings" :currentLocale="currentLocale" />
@@ -117,7 +117,7 @@ const submitApplication = () => {
                 <div class="absolute inset-0">
                     <img
                         src="/images/home-care.jpg"
-                        alt="Violetta Home Care"
+                        alt="Sunrise & Sunset Home Care"
                         class="w-full h-full object-cover"
                     />
                     <div class="absolute inset-0 bg-gradient-to-r from-[#2563eb]/90 to-[#4FE1D6]/80"></div>
@@ -130,7 +130,7 @@ const submitApplication = () => {
                             {{ getSetting('home_hero_title', 'Live-in care, your way.') }}
                         </h1>
                         <p class="text-xl sm:text-2xl text-white/95 mb-4">
-                            {{ getSetting('home_hero_subtitle', 'Violetta Home Care provides a trusted, nurse-led live-in care service') }}
+                            {{ getSetting('home_hero_subtitle', 'Sunrise & Sunset Home Care provides a trusted, nurse-led live-in care service') }}
                         </p>
                         <p class="text-lg sm:text-xl text-white/90 mb-8">
                             {{ getSetting('home_hero_description', 'Serving London and surrounding areas with compassionate, personalized care') }}
@@ -166,7 +166,7 @@ const submitApplication = () => {
                                 {{ getSetting('home_why_choose_title', 'Why choose us?') }}
                             </h2>
                             <p class="text-lg text-gray-700 mb-4 leading-relaxed">
-                                {{ getSetting('home_why_choose_p1', 'At Violetta Home Care, we understand that choosing care is a deeply personal decision. That\'s why we focus on carefully matching our dedicated care professionals with each client\'s unique needs and personality.') }}
+                                {{ getSetting('home_why_choose_p1', 'At Sunrise & Sunset Home Care, we understand that choosing care is a deeply personal decision. That\'s why we focus on carefully matching our dedicated care professionals with each client\'s unique needs and personality.') }}
                             </p>
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
                                 {{ getSetting('home_why_choose_p2', 'Our nurse-led approach ensures the highest quality of care, while our commitment to personalized service means you or your loved one will receive attention that truly makes a difference.') }}
@@ -213,19 +213,19 @@ const submitApplication = () => {
                                     <svg class="w-6 h-6 text-[#2563eb] flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                     </svg>
-                                    <span class="text-gray-700">£750-£950 per week with excellent benefits</span>
+                                    <span class="text-gray-700">{{ getSetting('home_career_benefit_1', '£750-£950 per week with excellent benefits') }}</span>
                                 </div>
                                 <div class="flex items-start space-x-3 mb-3">
                                     <svg class="w-6 h-6 text-[#2563eb] flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                     </svg>
-                                    <span class="text-gray-700">Comprehensive training and development</span>
+                                    <span class="text-gray-700">{{ getSetting('home_career_benefit_2', 'Comprehensive training and development') }}</span>
                                 </div>
                                 <div class="flex items-start space-x-3">
                                     <svg class="w-6 h-6 text-[#2563eb] flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                     </svg>
-                                    <span class="text-gray-700">24/7 support from our dedicated team</span>
+                                    <span class="text-gray-700">{{ getSetting('home_career_benefit_3', '24/7 support from our dedicated team') }}</span>
                                 </div>
                             </div>
                             <Link
@@ -271,33 +271,33 @@ const submitApplication = () => {
                         <!-- Text Content -->
                         <div class="order-1 lg:order-2">
                             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
-                                Live-in care in London and beyond
+                                {{ getSetting('home_service_area_title', 'Live-in care in London and beyond') }}
                             </h2>
                             <p class="text-lg text-gray-700 mb-4 leading-relaxed">
-                                We've been providing exceptional live-in care services across London and the surrounding areas, helping people maintain their independence and quality of life in the comfort of their own homes.
+                                {{ getSetting('home_service_area_p1', 'We\'ve been providing exceptional live-in care services across London and the surrounding areas, helping people maintain their independence and quality of life in the comfort of their own homes.') }}
                             </p>
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                                Our focus is on ensuring safety, contentment, and autonomy for every client. We understand that home is where the heart is, and we're committed to helping you or your loved one stay there with the support you need.
+                                {{ getSetting('home_service_area_p2', 'Our focus is on ensuring safety, contentment, and autonomy for every client. We understand that home is where the heart is, and we\'re committed to helping you or your loved one stay there with the support you need.') }}
                             </p>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
                                 <div class="text-center p-4 bg-gradient-to-br from-[#2563eb]/5 to-[#4FE1D6]/5 rounded-lg">
-                                    <div class="text-3xl font-bold text-[#2563eb] mb-1">24/7</div>
-                                    <div class="text-sm text-gray-600">Support Available</div>
+                                    <div class="text-3xl font-bold text-[#2563eb] mb-1">{{ getSetting('home_service_area_stat_1_value', '24/7') }}</div>
+                                    <div class="text-sm text-gray-600">{{ getSetting('home_service_area_stat_1_label', 'Support Available') }}</div>
                                 </div>
                                 <div class="text-center p-4 bg-gradient-to-br from-[#2563eb]/5 to-[#4FE1D6]/5 rounded-lg">
-                                    <div class="text-3xl font-bold text-[#2563eb] mb-1">100%</div>
-                                    <div class="text-sm text-gray-600">Personalized Care</div>
+                                    <div class="text-3xl font-bold text-[#2563eb] mb-1">{{ getSetting('home_service_area_stat_2_value', '100%') }}</div>
+                                    <div class="text-sm text-gray-600">{{ getSetting('home_service_area_stat_2_label', 'Personalized Care') }}</div>
                                 </div>
                                 <div class="text-center p-4 bg-gradient-to-br from-[#2563eb]/5 to-[#4FE1D6]/5 rounded-lg">
-                                    <div class="text-3xl font-bold text-[#2563eb] mb-1">CQC</div>
-                                    <div class="text-sm text-gray-600">Registered</div>
+                                    <div class="text-3xl font-bold text-[#2563eb] mb-1">{{ getSetting('home_service_area_stat_3_value', 'CQC') }}</div>
+                                    <div class="text-sm text-gray-600">{{ getSetting('home_service_area_stat_3_label', 'Registered') }}</div>
                                 </div>
                             </div>
                             <Link
                                 href="/live-in-care"
                                 class="inline-flex items-center text-[#2563eb] hover:text-[#1e40af] font-semibold text-lg group"
                             >
-                                Read more about our services
+                                {{ getSetting('home_service_area_cta', 'Read more about our services') }}
                                 <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 </svg>
@@ -313,10 +313,10 @@ const submitApplication = () => {
                     <div class="max-w-6xl mx-auto">
                         <div class="text-center mb-12">
                             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gray-900">
-                                Our Services
+                                {{ getSetting('home_services_title', 'Our Services') }}
                             </h2>
                             <p class="text-xl text-gray-700">
-                                Comprehensive care solutions tailored to your needs
+                                {{ getSetting('home_services_subtitle', 'Comprehensive care solutions tailored to your needs') }}
                             </p>
                         </div>
 
@@ -330,13 +330,13 @@ const submitApplication = () => {
                                         </svg>
                                     </div>
                                     <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#2563eb] transition-colors">
-                                        Live-in Care
+                                        {{ getSetting('home_services_livein_title', 'Live-in Care') }}
                                     </h3>
                                     <p class="text-gray-700 mb-4">
-                                        24/7 dedicated care in the comfort of your own home with a professional caregiver
+                                        {{ getSetting('home_services_livein_desc', '24/7 dedicated care in the comfort of your own home with a professional caregiver') }}
                                     </p>
                                     <span class="inline-flex items-center text-[#2563eb] font-semibold group-hover:translate-x-1 transition-transform">
-                                        Learn more
+                                        {{ getSetting('home_services_learn_more', 'Learn more') }}
                                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                         </svg>
@@ -353,13 +353,13 @@ const submitApplication = () => {
                                         </svg>
                                     </div>
                                     <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#2563eb] transition-colors">
-                                        Care Funding
+                                        {{ getSetting('home_services_funding_title', 'Care Funding') }}
                                     </h3>
                                     <p class="text-gray-700 mb-4">
-                                        Guidance on funding options including self-funding, local authority support, and NHS CHC
+                                        {{ getSetting('home_services_funding_desc', 'Guidance on funding options including self-funding, local authority support, and NHS CHC') }}
                                     </p>
                                     <span class="inline-flex items-center text-[#2563eb] font-semibold group-hover:translate-x-1 transition-transform">
-                                        Learn more
+                                        {{ getSetting('home_services_learn_more', 'Learn more') }}
                                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                         </svg>
@@ -376,13 +376,13 @@ const submitApplication = () => {
                                         </svg>
                                     </div>
                                     <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#2563eb] transition-colors">
-                                        Career Opportunities
+                                        {{ getSetting('home_services_careers_title', 'Career Opportunities') }}
                                     </h3>
                                     <p class="text-gray-700 mb-4">
-                                        Join our team of dedicated professionals and make a real difference in people's lives
+                                        {{ getSetting('home_services_careers_desc', 'Join our team of dedicated professionals and make a real difference in people\'s lives') }}
                                     </p>
                                     <span class="inline-flex items-center text-[#2563eb] font-semibold group-hover:translate-x-1 transition-transform">
-                                        Learn more
+                                        {{ getSetting('home_services_learn_more', 'Learn more') }}
                                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                         </svg>
@@ -400,10 +400,10 @@ const submitApplication = () => {
                     <div class="max-w-6xl mx-auto">
                         <div class="text-center mb-12">
                             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gray-900">
-                                Current Job Opportunities
+                                {{ getSetting('home_jobs_title', 'Current Job Opportunities') }}
                             </h2>
                             <p class="text-xl text-gray-700">
-                                Join our team and make a real difference in people's lives
+                                {{ getSetting('home_jobs_subtitle', 'Join our team and make a real difference in people\'s lives') }}
                             </p>
                         </div>
 
@@ -444,7 +444,7 @@ const submitApplication = () => {
                                         @click="openApplicationModal(job)"
                                         class="px-6 py-3 bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] text-white font-semibold rounded-full hover:from-[#1e40af] hover:to-[#3dccc1] transition-all duration-200 shadow-lg hover:shadow-xl whitespace-nowrap"
                                     >
-                                        Apply Now
+                                        {{ getSetting('home_jobs_apply_now', 'Apply Now') }}
                                     </button>
                                 </div>
 
@@ -453,7 +453,7 @@ const submitApplication = () => {
                                 </p>
 
                                 <div>
-                                    <h4 class="font-semibold text-gray-900 mb-2">Requirements:</h4>
+                                    <h4 class="font-semibold text-gray-900 mb-2">{{ getSetting('home_jobs_requirements', 'Requirements:') }}</h4>
                                     <ul class="space-y-1">
                                         <li
                                             v-for="(requirement, index) in job.requirements"
@@ -472,13 +472,13 @@ const submitApplication = () => {
 
                         <div class="mt-8 text-center">
                             <p class="text-gray-600 mb-4">
-                                Can't find the right role? We're always looking for talented care professionals.
+                                {{ getSetting('home_jobs_not_found', 'Can\'t find the right role? We\'re always looking for talented care professionals.') }}
                             </p>
                             <Link
                                 href="/careers"
                                 class="inline-flex items-center text-[#2563eb] hover:text-[#1e40af] font-semibold text-lg"
                             >
-                                View all career opportunities
+                                {{ getSetting('home_jobs_view_all', 'View all career opportunities') }}
                                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 </svg>
@@ -496,7 +496,7 @@ const submitApplication = () => {
             >
                 <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                     <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-                        <h3 class="text-2xl font-bold text-gray-900">Apply for {{ selectedJob?.title }}</h3>
+                        <h3 class="text-2xl font-bold text-gray-900">{{ getSetting('home_modal_apply_title', 'Apply for') }} {{ selectedJob?.title }}</h3>
                         <button
                             @click="closeApplicationModal"
                             class="text-gray-400 hover:text-gray-600 transition-colors"
@@ -511,7 +511,7 @@ const submitApplication = () => {
                         <!-- Full Name -->
                         <div>
                             <label for="full_name" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Full Name *
+                                {{ getSetting('home_modal_full_name', 'Full Name') }} *
                             </label>
                             <input
                                 type="text"
@@ -519,14 +519,14 @@ const submitApplication = () => {
                                 v-model="applicationForm.full_name"
                                 required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent"
-                                placeholder="Your full name"
+                                :placeholder="getSetting('home_modal_full_name', 'Full Name')"
                             />
                         </div>
 
                         <!-- Email -->
                         <div>
                             <label for="app_email" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Email Address *
+                                {{ getSetting('home_modal_email', 'Email Address') }} *
                             </label>
                             <input
                                 type="email"
@@ -541,7 +541,7 @@ const submitApplication = () => {
                         <!-- Phone -->
                         <div>
                             <label for="app_phone" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Phone Number *
+                                {{ getSetting('home_modal_phone', 'Phone Number') }} *
                             </label>
                             <input
                                 type="tel"
@@ -556,7 +556,7 @@ const submitApplication = () => {
                         <!-- Years of Experience -->
                         <div>
                             <label for="experience" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Years of Care Experience *
+                                {{ getSetting('home_modal_experience', 'Years of Care Experience') }} *
                             </label>
                             <select
                                 id="experience"
@@ -564,19 +564,19 @@ const submitApplication = () => {
                                 required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent"
                             >
-                                <option value="">Please select...</option>
-                                <option value="no_experience">No experience</option>
-                                <option value="less_than_1">Less than 1 year</option>
-                                <option value="1_2">1-2 years</option>
-                                <option value="3_5">3-5 years</option>
-                                <option value="5_plus">5+ years</option>
+                                <option value="">{{ getSetting('home_modal_experience_select', 'Please select...') }}</option>
+                                <option value="no_experience">{{ getSetting('home_modal_experience_none', 'No experience') }}</option>
+                                <option value="less_than_1">{{ getSetting('home_modal_experience_less1', 'Less than 1 year') }}</option>
+                                <option value="1_2">{{ getSetting('home_modal_experience_1_2', '1-2 years') }}</option>
+                                <option value="3_5">{{ getSetting('home_modal_experience_3_5', '3-5 years') }}</option>
+                                <option value="5_plus">{{ getSetting('home_modal_experience_5plus', '5+ years') }}</option>
                             </select>
                         </div>
 
                         <!-- Cover Letter -->
                         <div>
                             <label for="cover_letter" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Cover Letter / Why do you want to join us? *
+                                {{ getSetting('home_modal_cover_letter', 'Cover Letter / Why do you want to join us?') }} *
                             </label>
                             <textarea
                                 id="cover_letter"
@@ -584,18 +584,13 @@ const submitApplication = () => {
                                 required
                                 rows="5"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2563eb] focus:border-transparent"
-                                placeholder="Tell us about yourself and why you'd be a great fit for this role..."
+                                :placeholder="getSetting('home_modal_cover_letter_placeholder', 'Tell us about yourself and why you\'d be a great fit for this role...')"
                             ></textarea>
                         </div>
 
                         <!-- CV Upload Note -->
                         <div class="bg-gradient-to-br from-[#2563eb]/5 to-[#4FE1D6]/5 p-4 rounded-lg">
-                            <p class="text-sm text-gray-700">
-                                <strong>Note:</strong> After submitting this form, please email your CV to
-                                <a href="mailto:careers@violettahomecare.com" class="text-[#2563eb] hover:text-[#1e40af] font-semibold">
-                                    careers@violettahomecare.com
-                                </a>
-                                with the subject line "Application for {{ selectedJob?.title }}"
+                            <p class="text-sm text-gray-700" v-html="getSetting('home_modal_cv_note', '<strong>Note:</strong> After submitting this form, please email your CV to') + ' <a href=\'mailto:careers@violettahomecare.com\' class=\'text-[#2563eb] hover:text-[#1e40af] font-semibold\'>careers@violettahomecare.com</a> ' + getSetting('home_modal_cv_subject', 'with the subject line &quot;Application for') + ' ' + selectedJob?.title + '&quot;'">
                             </p>
                         </div>
 
@@ -606,18 +601,18 @@ const submitApplication = () => {
                                 @click="closeApplicationModal"
                                 class="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all duration-200"
                             >
-                                Cancel
+                                {{ getSetting('home_modal_cancel', 'Cancel') }}
                             </button>
                             <button
                                 type="submit"
                                 class="flex-1 px-6 py-3 bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] text-white font-semibold rounded-full hover:from-[#1e40af] hover:to-[#3dccc1] transition-all duration-200 shadow-lg hover:shadow-xl"
                             >
-                                Submit Application
+                                {{ getSetting('home_modal_submit', 'Submit Application') }}
                             </button>
                         </div>
 
                         <p class="text-xs text-gray-600 text-center">
-                            By submitting this application, you consent to us processing your data in accordance with our Privacy Policy.
+                            {{ getSetting('home_modal_privacy', 'By submitting this application, you consent to us processing your data in accordance with our Privacy Policy.') }}
                         </p>
                     </form>
                 </div>
@@ -628,23 +623,23 @@ const submitApplication = () => {
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="max-w-4xl mx-auto text-center">
                         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-white">
-                            Ready to learn more about our care services?
+                            {{ getSetting('home_final_cta_title', 'Ready to learn more about our care services?') }}
                         </h2>
                         <p class="text-xl text-white/90 mb-8">
-                            Contact our friendly team today for a free, no-obligation consultation
+                            {{ getSetting('home_final_cta_subtitle', 'Contact our friendly team today for a free, no-obligation consultation') }}
                         </p>
                         <div class="flex flex-col sm:flex-row gap-4 justify-center">
                             <a
                                 href="tel:+442032391227"
                                 class="px-8 py-4 bg-white text-[#2563eb] font-semibold rounded-full hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl text-lg"
                             >
-                                Call +44 20 3239 1227
+                                {{ getSetting('home_final_cta_call', 'Call +44 20 3239 1227') }}
                             </a>
                             <Link
                                 href="/contact"
                                 class="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-[#2563eb] transition-all duration-200 text-lg"
                             >
-                                Contact Us Online
+                                {{ getSetting('home_final_cta_contact', 'Contact Us Online') }}
                             </Link>
                         </div>
                     </div>
@@ -652,6 +647,6 @@ const submitApplication = () => {
             </section>
         </main>
 
-        <Footer :settings="settings" />
+        <Footer :settings="settings" :currentLocale="currentLocale" />
     </div>
 </template>

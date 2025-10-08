@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
@@ -24,6 +25,7 @@ class SettingController extends Controller
                 $q->where('key', 'like', "%{$search}%")
                   ->orWhere('value_en', 'like', "%{$search}%")
                   ->orWhere('value_pl', 'like', "%{$search}%")
+                  ->orWhere('value_nl', 'like', "%{$search}%")
                   ->orWhere('group', 'like', "%{$search}%");
             });
         }
@@ -71,12 +73,14 @@ class SettingController extends Controller
         $validated = $request->validate([
             'key' => 'required|string|max:255|unique:settings,key',
             'value_en' => 'required|string',
-            'value_pl' => 'required|string',
+            'value_pl' => 'nullable|string',
+            'value_nl' => 'nullable|string',
             'type' => 'required|string|in:text,textarea,email,url,number',
             'group' => 'required|string|max:100',
         ]);
 
         Setting::create($validated);
+        Cache::forget('settings_all');
 
         return redirect()->route('admin.settings.index')->with('success', 'Setting created successfully!');
     }
@@ -109,12 +113,14 @@ class SettingController extends Controller
         $validated = $request->validate([
             'key' => 'required|string|max:255|unique:settings,key,' . $setting->id,
             'value_en' => 'required|string',
-            'value_pl' => 'required|string',
+            'value_pl' => 'nullable|string',
+            'value_nl' => 'nullable|string',
             'type' => 'required|string|in:text,textarea,email,url,number',
             'group' => 'required|string|max:100',
         ]);
 
         $setting->update($validated);
+        Cache::forget('settings_all');
 
         return redirect()->route('admin.settings.index')->with('success', 'Setting updated successfully!');
     }
@@ -125,6 +131,7 @@ class SettingController extends Controller
     public function destroy(Setting $setting): RedirectResponse
     {
         $setting->delete();
+        Cache::forget('settings_all');
 
         return redirect()->route('admin.settings.index')->with('success', 'Setting deleted successfully!');
     }

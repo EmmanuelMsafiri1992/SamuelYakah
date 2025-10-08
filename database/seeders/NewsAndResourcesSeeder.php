@@ -1,0 +1,332 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class NewsAndResourcesSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $settings = [
+            // NEWS PAGE
+            [
+                'key' => 'news_hero_title',
+                'value_en' => 'Latest News',
+                'value_pl' => 'Najnowsze wiadomości',
+                'value_nl' => 'Laatste nieuws',
+                'type' => 'text',
+                'group' => 'news',
+            ],
+            [
+                'key' => 'news_hero_subtitle',
+                'value_en' => 'Read the latest care industry news, interesting articles, and important announcements',
+                'value_pl' => 'Przeczytaj najnowsze wiadomości z branży opiekuńczej, ciekawe artykuły i ważne ogłoszenia',
+                'value_nl' => 'Lees het laatste nieuws uit de zorgsector, interessante artikelen en belangrijke aankondigingen',
+                'type' => 'text',
+                'group' => 'news',
+            ],
+            [
+                'key' => 'news_read_more',
+                'value_en' => 'Read More',
+                'value_pl' => 'Czytaj więcej',
+                'value_nl' => 'Lees meer',
+                'type' => 'text',
+                'group' => 'news',
+            ],
+            [
+                'key' => 'news_newsletter_title',
+                'value_en' => 'Stay Updated',
+                'value_pl' => 'Bądź na bieżąco',
+                'value_nl' => 'Blijf op de hoogte',
+                'type' => 'text',
+                'group' => 'news',
+            ],
+            [
+                'key' => 'news_newsletter_subtitle',
+                'value_en' => 'Get the latest news and updates delivered straight to your inbox',
+                'value_pl' => 'Otrzymuj najnowsze wiadomości i aktualizacje bezpośrednio do skrzynki odbiorczej',
+                'value_nl' => 'Ontvang het laatste nieuws en updates rechtstreeks in uw inbox',
+                'type' => 'text',
+                'group' => 'news',
+            ],
+            [
+                'key' => 'news_cta_title',
+                'value_en' => 'Learn More About Our Services',
+                'value_pl' => 'Dowiedz się więcej o naszych usługach',
+                'value_nl' => 'Meer informatie over onze diensten',
+                'type' => 'text',
+                'group' => 'news',
+            ],
+            [
+                'key' => 'news_cta_subtitle',
+                'value_en' => 'Contact us today to discuss your care needs',
+                'value_pl' => 'Skontaktuj się z nami już dziś, aby omówić swoje potrzeby opiekuńcze',
+                'value_nl' => 'Neem vandaag nog contact met ons op om uw zorgbehoeften te bespreken',
+                'type' => 'text',
+                'group' => 'news',
+            ],
+            [
+                'key' => 'news_contact_button',
+                'value_en' => 'Contact Us',
+                'value_pl' => 'Skontaktuj się z nami',
+                'value_nl' => 'Neem contact op',
+                'type' => 'text',
+                'group' => 'news',
+            ],
+            [
+                'key' => 'news_cta_online',
+                'value_en' => 'Contact Us Online',
+                'value_pl' => 'Skontaktuj się online',
+                'value_nl' => 'Neem online contact op',
+                'type' => 'text',
+                'group' => 'news',
+            ],
+
+            // RESOURCES PAGE
+            [
+                'key' => 'resources_hero_title',
+                'value_en' => 'Care Resources & Information',
+                'value_pl' => 'Zasoby i informacje opiekuńcze',
+                'value_nl' => 'Zorgbronnen & informatie',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_hero_subtitle',
+                'value_en' => 'Helpful resources and information to support you in making informed care decisions',
+                'value_pl' => 'Przydatne zasoby i informacje wspierające podejmowanie świadomych decyzji opiekuńczych',
+                'value_nl' => 'Nuttige bronnen en informatie om u te ondersteunen bij het nemen van weloverwogen zorgbeslissingen',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card1_title',
+                'value_en' => 'Care Guides',
+                'value_pl' => 'Przewodniki opieki',
+                'value_nl' => 'Zorggidsen',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card1_desc',
+                'value_en' => 'Comprehensive guides on various aspects of live-in care, from getting started to managing complex conditions.',
+                'value_pl' => 'Kompleksowe przewodniki dotyczące różnych aspektów opieki domowej, od rozpoczęcia po zarządzanie złożonymi stanami.',
+                'value_nl' => 'Uitgebreide gidsen over verschillende aspecten van thuiszorg, van aan de slag gaan tot het beheren van complexe aandoeningen.',
+                'type' => 'textarea',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card2_title',
+                'value_en' => 'Useful Forms',
+                'value_pl' => 'Przydatne formularze',
+                'value_nl' => 'Nuttige formulieren',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card2_desc',
+                'value_en' => 'Download important forms and documents for care assessments, funding applications, and service agreements.',
+                'value_pl' => 'Pobierz ważne formularze i dokumenty do oceny opieki, wniosków o finansowanie i umów serwisowych.',
+                'value_nl' => 'Download belangrijke formulieren en documenten voor zorgbeoordelingen, financieringsaanvragen en serviceovereenkomsten.',
+                'type' => 'textarea',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card3_title',
+                'value_en' => 'FAQs',
+                'value_pl' => 'FAQ',
+                'value_nl' => 'Veelgestelde vragen',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card3_desc',
+                'value_en' => 'Find answers to commonly asked questions about our services, care options, and the care process.',
+                'value_pl' => 'Znajdź odpowiedzi na często zadawane pytania dotyczące naszych usług, opcji opieki i procesu opieki.',
+                'value_nl' => 'Vind antwoorden op veelgestelde vragen over onze diensten, zorgopties en het zorgproces.',
+                'type' => 'textarea',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card4_title',
+                'value_en' => 'Condition-Specific Information',
+                'value_pl' => 'Informacje specyficzne dla schorzeń',
+                'value_nl' => 'Aandoeningsspecifieke informatie',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card4_desc',
+                'value_en' => 'Detailed information about caring for specific conditions including dementia, Parkinson\'s, and more.',
+                'value_pl' => 'Szczegółowe informacje na temat opieki nad konkretnymi schorzeniami, w tym demencją, chorobą Parkinsona i innymi.',
+                'value_nl' => 'Gedetailleerde informatie over de zorg voor specifieke aandoeningen, waaronder dementie, Parkinson en meer.',
+                'type' => 'textarea',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card5_title',
+                'value_en' => 'Family Support',
+                'value_pl' => 'Wsparcie rodziny',
+                'value_nl' => 'Familieondersteuning',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card5_desc',
+                'value_en' => 'Resources and guidance for family members supporting a loved one receiving care at home.',
+                'value_pl' => 'Zasoby i wskazówki dla członków rodziny wspierających bliską osobę otrzymującą opiekę w domu.',
+                'value_nl' => 'Bronnen en begeleiding voor familieleden die een dierbare ondersteunen die thuis zorg ontvangt.',
+                'type' => 'textarea',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card6_title',
+                'value_en' => 'External Resources',
+                'value_pl' => 'Zasoby zewnętrzne',
+                'value_nl' => 'Externe bronnen',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_card6_desc',
+                'value_en' => 'Links to trusted external organizations, charities, and support services for additional help.',
+                'value_pl' => 'Linki do zaufanych organizacji zewnętrznych, organizacji charytatywnych i usług wsparcia dla dodatkowej pomocy.',
+                'value_nl' => 'Links naar vertrouwde externe organisaties, goede doelen en ondersteunende diensten voor extra hulp.',
+                'type' => 'textarea',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_key_title',
+                'value_en' => 'Key Resources',
+                'value_pl' => 'Kluczowe zasoby',
+                'value_nl' => 'Belangrijke bronnen',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_key1_title',
+                'value_en' => 'Getting Started with Live-in Care',
+                'value_pl' => 'Rozpoczęcie opieki domowej',
+                'value_nl' => 'Aan de slag met thuiszorg',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_key1_desc',
+                'value_en' => 'A comprehensive guide to help you understand what live-in care involves, how to prepare your home, and what to expect from your care professional.',
+                'value_pl' => 'Kompleksowy przewodnik pomagający zrozumieć, co obejmuje opieka domowa, jak przygotować swój dom i czego oczekiwać od opiekuna.',
+                'value_nl' => 'Een uitgebreide gids om u te helpen begrijpen wat thuiszorg inhoudt, hoe u uw huis voorbereidt en wat u van uw zorgprofessional kunt verwachten.',
+                'type' => 'textarea',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_key2_title',
+                'value_en' => 'Understanding Care Costs',
+                'value_pl' => 'Zrozumienie kosztów opieki',
+                'value_nl' => 'Zorgkosten begrijpen',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_key2_desc',
+                'value_en' => 'Transparent information about care costs, what\'s included in our pricing, and how to plan your care budget effectively.',
+                'value_pl' => 'Przejrzyste informacje o kosztach opieki, co jest zawarte w naszych cenach i jak efektywnie zaplanować budżet opieki.',
+                'value_nl' => 'Transparante informatie over zorgkosten, wat er in onze prijzen is inbegrepen en hoe u uw zorgbudget effectief plant.',
+                'type' => 'textarea',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_key3_title',
+                'value_en' => 'Care Quality & Standards',
+                'value_pl' => 'Jakość i standardy opieki',
+                'value_nl' => 'Zorgkwaliteit & normen',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_key3_desc',
+                'value_en' => 'Information about our quality standards, CQC registration, and our commitment to excellence in care delivery.',
+                'value_pl' => 'Informacje o naszych standardach jakości, rejestracji CQC i naszym zaangażowaniu w doskonałość w świadczeniu opieki.',
+                'value_nl' => 'Informatie over onze kwaliteitsnormen, CQC-registratie en onze toewijding aan excellentie in zorgverlening.',
+                'type' => 'textarea',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_orgs_title',
+                'value_en' => 'Helpful Organizations',
+                'value_pl' => 'Pomocne organizacje',
+                'value_nl' => 'Nuttige organisaties',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_orgs_intro',
+                'value_en' => 'These trusted organizations provide additional support and information for people needing care and their families:',
+                'value_pl' => 'Te zaufane organizacje zapewniają dodatkowe wsparcie i informacje dla osób potrzebujących opieki i ich rodzin:',
+                'value_nl' => 'Deze vertrouwde organisaties bieden aanvullende ondersteuning en informatie voor mensen die zorg nodig hebben en hun families:',
+                'type' => 'textarea',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_cta_title',
+                'value_en' => 'Need More Information?',
+                'value_pl' => 'Potrzebujesz więcej informacji?',
+                'value_nl' => 'Meer informatie nodig?',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'resources_cta_subtitle',
+                'value_en' => 'Our team is here to answer your questions and provide personalized guidance',
+                'value_pl' => 'Nasz zespół jest tutaj, aby odpowiedzieć na Twoje pytania i zapewnić spersonalizowane wskazówki',
+                'value_nl' => 'Ons team staat klaar om uw vragen te beantwoorden en persoonlijke begeleiding te bieden',
+                'type' => 'text',
+                'group' => 'resources',
+            ],
+            [
+                'key' => 'common_learn_more',
+                'value_en' => 'Learn More',
+                'value_pl' => 'Dowiedz się więcej',
+                'value_nl' => 'Meer informatie',
+                'type' => 'text',
+                'group' => 'common',
+            ],
+            [
+                'key' => 'common_view_funding',
+                'value_en' => 'View Funding Options',
+                'value_pl' => 'Zobacz opcje finansowania',
+                'value_nl' => 'Bekijk financieringsopties',
+                'type' => 'text',
+                'group' => 'common',
+            ],
+            [
+                'key' => 'common_read_more',
+                'value_en' => 'Read More',
+                'value_pl' => 'Czytaj więcej',
+                'value_nl' => 'Lees meer',
+                'type' => 'text',
+                'group' => 'common',
+            ],
+            [
+                'key' => 'common_call',
+                'value_en' => 'Call',
+                'value_pl' => 'Zadzwoń',
+                'value_nl' => 'Bel',
+                'type' => 'text',
+                'group' => 'common',
+            ],
+        ];
+
+        foreach ($settings as $setting) {
+            DB::table('settings')->updateOrInsert(
+                ['key' => $setting['key']],
+                $setting
+            );
+        }
+
+        $this->command->info('News and Resources content seeded successfully!');
+        $this->command->info('Total settings created: ' . count($settings));
+    }
+}

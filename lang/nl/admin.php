@@ -1,0 +1,111 @@
+<?php
+
+return [
+    // Sidebar Navigation
+    'dashboard' => 'Dashboard',
+    'sections' => 'Secties',
+    'faqs' => 'Veelgestelde Vragen',
+    'benefits' => 'Voordelen',
+    'training_modules' => 'Trainingsmodules',
+    'job_positions' => 'Vacatures',
+    'job_applications' => 'Sollicitaties',
+    'settings' => 'Instellingen',
+
+    // Common Actions
+    'create' => 'Aanmaken',
+    'edit' => 'Bewerken',
+    'delete' => 'Verwijderen',
+    'save' => 'Opslaan',
+    'cancel' => 'Annuleren',
+    'search' => 'Zoeken',
+    'filter' => 'Filteren',
+    'actions' => 'Acties',
+    'back' => 'Terug',
+    'update' => 'Bijwerken',
+    'submit' => 'Verzenden',
+
+    // Table Headers
+    'id' => 'ID',
+    'title' => 'Titel',
+    'description' => 'Beschrijving',
+    'order' => 'Volgorde',
+    'status' => 'Status',
+    'active' => 'Actief',
+    'inactive' => 'Inactief',
+    'created_at' => 'Aangemaakt Op',
+    'updated_at' => 'Bijgewerkt Op',
+
+    // Buttons
+    'add_new' => 'Nieuw Toevoegen',
+    'add_new_section' => 'Nieuwe Sectie Toevoegen',
+    'add_new_faq' => 'Nieuwe Veelgestelde Vraag Toevoegen',
+    'add_new_benefit' => 'Nieuw Voordeel Toevoegen',
+    'add_new_training_module' => 'Nieuwe Trainingsmodule Toevoegen',
+    'add_new_job_position' => 'Nieuwe Vacature Toevoegen',
+    'add_new_setting' => 'Nieuwe Instelling Toevoegen',
+
+    // Messages
+    'no_results' => 'Geen resultaten gevonden.',
+    'confirm_delete' => 'Weet u zeker dat u dit item wilt verwijderen?',
+    'success_created' => 'Succesvol aangemaakt!',
+    'success_updated' => 'Succesvol bijgewerkt!',
+    'success_deleted' => 'Succesvol verwijderd!',
+
+    // Form Labels
+    'title_en' => 'Titel (Engels)',
+    'title_pl' => 'Titel (Pools)',
+    'title_nl' => 'Titel (Nederlands)',
+    'description_en' => 'Beschrijving (Engels)',
+    'description_pl' => 'Beschrijving (Pools)',
+    'description_nl' => 'Beschrijving (Nederlands)',
+    'content_en' => 'Inhoud (Engels)',
+    'content_pl' => 'Inhoud (Pools)',
+    'content_nl' => 'Inhoud (Nederlands)',
+    'question_en' => 'Vraag (Engels)',
+    'question_pl' => 'Vraag (Pools)',
+    'question_nl' => 'Vraag (Nederlands)',
+    'answer_en' => 'Antwoord (Engels)',
+    'answer_pl' => 'Antwoord (Pools)',
+    'answer_nl' => 'Antwoord (Nederlands)',
+    'location' => 'Locatie',
+    'location_en' => 'Locatie (Engels)',
+    'location_pl' => 'Locatie (Pools)',
+    'location_nl' => 'Locatie (Nederlands)',
+    'type' => 'Type',
+    'salary_range' => 'Salarisbereik',
+    'salary_min' => 'Minimumsalaris',
+    'salary_max' => 'Maximumsalaris',
+    'requirements' => 'Vereisten',
+    'requirements_en' => 'Vereisten (Engels)',
+    'requirements_pl' => 'Vereisten (Pools)',
+    'requirements_nl' => 'Vereisten (Nederlands)',
+    'responsibilities' => 'Verantwoordelijkheden',
+    'responsibilities_en' => 'Verantwoordelijkheden (Engels)',
+    'responsibilities_pl' => 'Verantwoordelijkheden (Pools)',
+    'responsibilities_nl' => 'Verantwoordelijkheden (Nederlands)',
+    'icon' => 'Icoon',
+    'key' => 'Sleutel',
+    'value' => 'Waarde',
+    'value_en' => 'Waarde (Engels)',
+    'value_pl' => 'Waarde (Pools)',
+    'value_nl' => 'Waarde (Nederlands)',
+    'group' => 'Groep',
+
+    // Job Types
+    'full_time' => 'Voltijds',
+    'part_time' => 'Deeltijds',
+    'contract' => 'Contract',
+
+    // Profile & Auth
+    'profile' => 'Profiel',
+    'logout' => 'Uitloggen',
+    'admin_panel' => 'Beheerpaneel',
+
+    // Pagination
+    'showing' => 'Toont',
+    'to' => 'tot',
+    'of' => 'van',
+    'results' => 'resultaten',
+    'previous' => 'Vorige',
+    'next' => 'Volgende',
+];

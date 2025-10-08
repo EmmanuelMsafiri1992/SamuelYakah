@@ -16,7 +16,7 @@ class LanguageController extends Controller
     public function switch(Request $request)
     {
         $request->validate([
-            'locale' => 'required|in:en,pl',
+            'locale' => 'required|in:en,pl,nl',
         ]);
 
         Session::put('locale', $request->locale);

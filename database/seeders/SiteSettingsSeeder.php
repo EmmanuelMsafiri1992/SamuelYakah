@@ -17,8 +17,8 @@ class SiteSettingsSeeder extends Seeder
             // Site Identity
             [
                 'key' => 'site_name',
-                'value_en' => 'Violetta Home Care Limited',
-                'value_pl' => 'Violetta Home Care Limited',
+                'value_en' => 'Sunrise & Sunset Home Care',
+                'value_pl' => 'Sunrise & Sunset Home Care',
                 'type' => 'text',
                 'group' => 'general',
             ],
@@ -172,8 +172,8 @@ class SiteSettingsSeeder extends Seeder
             ],
             [
                 'key' => 'home_hero_subtitle',
-                'value_en' => 'Violetta Home Care provides a trusted, nurse-led live-in care service',
-                'value_pl' => 'Violetta Home Care zapewnia zaufaną, kierowaną przez pielęgniarki usługę opieki domowej',
+                'value_en' => 'Sunrise & Sunset Home Care provides a trusted, nurse-led live-in care service',
+                'value_pl' => 'Sunrise & Sunset Home Care zapewnia zaufaną, kierowaną przez pielęgniarki usługę opieki domowej',
                 'type' => 'text',
                 'group' => 'homepage',
             ],
@@ -200,8 +200,8 @@ class SiteSettingsSeeder extends Seeder
             ],
             [
                 'key' => 'home_why_choose_p1',
-                'value_en' => 'At Violetta Home Care, we understand that choosing care is a deeply personal decision. That\'s why we focus on carefully matching our dedicated care professionals with each client\'s unique needs and personality.',
-                'value_pl' => 'W Violetta Home Care rozumiemy, że wybór opieki to głęboko osobista decyzja. Dlatego skupiamy się na starannym dopasowywaniu naszych oddanych opiekunów do unikalnych potrzeb i osobowości każdego klienta.',
+                'value_en' => 'At Sunrise & Sunset Home Care, we understand that choosing care is a deeply personal decision. That\'s why we focus on carefully matching our dedicated care professionals with each client\'s unique needs and personality.',
+                'value_pl' => 'W Sunrise & Sunset Home Care rozumiemy, że wybór opieki to głęboko osobista decyzja. Dlatego skupiamy się na starannym dopasowywaniu naszych oddanych opiekunów do unikalnych potrzeb i osobowości każdego klienta.',
                 'type' => 'textarea',
                 'group' => 'homepage',
             ],

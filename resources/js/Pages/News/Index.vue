@@ -1,46 +1,53 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
+import { computed } from 'vue';
 
-defineProps({
+const props = defineProps({
     settings: {
         type: Object,
         default: () => ({})
+    },
+    currentLocale: {
+        type: String,
+        default: 'en'
+    },
+    articles: {
+        type: Array,
+        default: () => []
     }
 });
 
-const newsArticles = [
-    {
-        title: "Celebrating Excellence in Care",
-        excerpt: "Our team's dedication to providing outstanding personalized care continues to set new standards in the home care industry.",
-        date: "March 2025",
-        category: "Awards"
-    },
-    {
-        title: "Understanding Dementia Care at Home",
-        excerpt: "Discover why home care can be a better alternative to residential care for those living with dementia.",
-        date: "February 2025",
-        category: "Care Insights"
-    },
-    {
-        title: "Technology in Home Care",
-        excerpt: "How we're embracing innovative technology to enhance the quality of care we provide to our clients.",
-        date: "January 2025",
-        category: "Innovation"
-    },
-    {
-        title: "Supporting Complex Care Needs",
-        excerpt: "Our commitment to providing specialized care for individuals with complex medical conditions.",
-        date: "December 2024",
-        category: "Care Services"
+// Helper function to get setting value based on current locale
+const getSetting = (key, defaultValue = '') => {
+    if (!props.settings || !props.settings[key]) {
+        return defaultValue;
     }
-];
+    const valueKey = `value_${props.currentLocale}`;
+    return props.settings[key][valueKey] || props.settings[key].value_en || defaultValue;
+};
+
+// Helper function to get localized article field
+const getArticleField = (article, field) => {
+    const localizedField = `${field}_${props.currentLocale}`;
+    return article[localizedField] || article[`${field}_en`] || '';
+};
+
+const newsArticles = computed(() => {
+    return props.articles.map(article => ({
+        title: getArticleField(article, 'title'),
+        excerpt: getArticleField(article, 'excerpt'),
+        category: getArticleField(article, 'category'),
+        date: article.date,
+        slug: article.slug
+    }));
+});
 </script>
 
 <template>
-    <Head title="Latest News - Violetta Home Care Limited" />
+    <Head title="Latest News - Sunrise & Sunset Home Care" />
 
-    <PublicLayout :settings="settings">
+    <PublicLayout :settings="settings" :currentLocale="currentLocale">
         <!-- Hero Section -->
         <section class="relative py-20 overflow-hidden">
             <!-- Background Image -->
@@ -57,10 +64,10 @@ const newsArticles = [
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="max-w-4xl mx-auto text-center">
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-white">
-                        Latest News
+                        {{ getSetting('news_hero_title', 'Latest News') }}
                     </h1>
                     <p class="text-xl text-white/95 mb-8">
-                        Read the latest care industry news, interesting articles, and important announcements
+                        {{ getSetting('news_hero_subtitle', 'Read the latest care industry news, interesting articles, and important announcements') }}
                     </p>
                 </div>
             </div>
@@ -92,7 +99,7 @@ const newsArticles = [
                             </p>
 
                             <a href="/#contact" class="inline-flex items-center text-[#2563eb] hover:text-[#1e40af] font-semibold">
-                                Read More
+                                {{ getSetting('news_read_more', 'Read More') }}
                                 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 </svg>
@@ -108,13 +115,13 @@ const newsArticles = [
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-3xl mx-auto text-center">
                     <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-gray-900">
-                        Stay Updated
+                        {{ getSetting('news_newsletter_title', 'Stay Updated') }}
                     </h2>
                     <p class="text-xl text-gray-700 mb-8">
-                        Get the latest news and updates delivered straight to your inbox
+                        {{ getSetting('news_newsletter_subtitle', 'Get the latest news and updates delivered straight to your inbox') }}
                     </p>
                     <a href="/#contact" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] text-white font-semibold rounded-full hover:from-[#1e40af] hover:to-[#3dccc1] transition-all duration-200 shadow-lg hover:shadow-xl">
-                        Contact Us
+                        {{ getSetting('news_contact_button', 'Contact Us') }}
                     </a>
                 </div>
             </div>
@@ -125,17 +132,17 @@ const newsArticles = [
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-3xl mx-auto text-center">
                     <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                        Learn More About Our Services
+                        {{ getSetting('news_cta_title', 'Learn More About Our Services') }}
                     </h2>
                     <p class="text-xl text-white/90 mb-8">
-                        Contact us today to discuss your care needs
+                        {{ getSetting('news_cta_subtitle', 'Contact us today to discuss your care needs') }}
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="tel:+442032391227" class="px-8 py-4 bg-white text-[#2563eb] font-semibold rounded-full hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl">
-                            Call +44 20 3239 1227
+                        <a :href="`tel:${getSetting('contact_phone', '+442032391227')}`" class="px-8 py-4 bg-white text-[#2563eb] font-semibold rounded-full hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl">
+                            {{ getSetting('common_call', 'Call') }} {{ getSetting('contact_phone', '+442032391227') }}
                         </a>
                         <a href="/#contact" class="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-[#2563eb] transition-all duration-200">
-                            Contact Us Online
+                            {{ getSetting('news_cta_online', 'Contact Us Online') }}
                         </a>
                     </div>
                 </div>

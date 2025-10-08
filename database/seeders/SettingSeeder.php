@@ -15,8 +15,8 @@ class SettingSeeder extends Seeder
         $settings = [
             [
                 'key' => 'site_name',
-                'value_en' => 'Violetta Home Care Limited',
-                'value_pl' => 'Violetta Home Care Limited',
+                'value_en' => 'Sunrise & Sunset Home Care',
+                'value_pl' => 'Sunrise & Sunset Home Care',
                 'type' => 'text',
                 'group' => 'general',
             ],
@@ -43,15 +43,15 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key' => 'company_address',
-                'value_en' => 'Violetta Home Care Limited Home Care Ltd, Cardinal Square, 10 Nottingham Road, Derby, DE1 3QT, United Kingdom',
-                'value_pl' => 'Violetta Home Care Limited Home Care Ltd, Cardinal Square, 10 Nottingham Road, Derby, DE1 3QT, Wielka Brytania',
+                'value_en' => 'Sunrise & Sunset Home Care Home Care Ltd, Cardinal Square, 10 Nottingham Road, Derby, DE1 3QT, United Kingdom',
+                'value_pl' => 'Sunrise & Sunset Home Care Home Care Ltd, Cardinal Square, 10 Nottingham Road, Derby, DE1 3QT, Wielka Brytania',
                 'type' => 'textarea',
                 'group' => 'contact',
             ],
             [
                 'key' => 'footer_text',
-                'value_en' => 'Violetta Home Care Limited is a leading provider of live-in care services across the UK. We are dedicated to supporting our carers with comprehensive CQC-registered training, competitive pay packages, and continuous professional development opportunities. Join our community of compassionate care professionals and build a truly rewarding career while making a meaningful difference in people\'s lives every single day.',
-                'value_pl' => 'Violetta Home Care Limited jest wiodącym dostawcą usług opieki domowej w całej Wielkiej Brytanii. Jesteśmy zaangażowani we wspieranie naszych opiekunów kompleksowymi szkoleniami zarejestrowanymi przez CQC, konkurencyjnymi pakietami wynagrodzeń i ciągłymi możliwościami rozwoju zawodowego. Dołącz do naszej społeczności współczujących profesjonalistów opieki i zbuduj prawdziwie satysfakcjonującą karierę, wprowadzając znaczącą zmianę w życiu ludzi każdego dnia.',
+                'value_en' => 'Sunrise & Sunset Home Care is a leading provider of live-in care services across the UK. We are dedicated to supporting our carers with comprehensive CQC-registered training, competitive pay packages, and continuous professional development opportunities. Join our community of compassionate care professionals and build a truly rewarding career while making a meaningful difference in people\'s lives every single day.',
+                'value_pl' => 'Sunrise & Sunset Home Care jest wiodącym dostawcą usług opieki domowej w całej Wielkiej Brytanii. Jesteśmy zaangażowani we wspieranie naszych opiekunów kompleksowymi szkoleniami zarejestrowanymi przez CQC, konkurencyjnymi pakietami wynagrodzeń i ciągłymi możliwościami rozwoju zawodowego. Dołącz do naszej społeczności współczujących profesjonalistów opieki i zbuduj prawdziwie satysfakcjonującą karierę, wprowadzając znaczącą zmianę w życiu ludzi każdego dnia.',
                 'type' => 'textarea',
                 'group' => 'general',
             ],
@@ -92,8 +92,8 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key' => 'meta_description',
-                'value_en' => 'Join Violetta Home Care Limited as a live-in carer and build a rewarding career. Earn £800-£1,200 per week with free accommodation, meals, comprehensive CQC training, healthcare benefits, and flexible working patterns. Apply now and make a real difference.',
-                'value_pl' => 'Dołącz do Violetta Home Care Limited jako opiekun domowy i zbuduj satysfakcjonującą karierę. Zarabiaj £800-£1,200 tygodniowo z bezpłatnym zakwaterowaniem, wyżywieniem, kompleksowym szkoleniem CQC, świadczeniami zdrowotnymi i elastycznymi warunkami pracy. Aplikuj teraz i wprowadź prawdziwą zmianę.',
+                'value_en' => 'Join Sunrise & Sunset Home Care as a live-in carer and build a rewarding career. Earn £800-£1,200 per week with free accommodation, meals, comprehensive CQC training, healthcare benefits, and flexible working patterns. Apply now and make a real difference.',
+                'value_pl' => 'Dołącz do Sunrise & Sunset Home Care jako opiekun domowy i zbuduj satysfakcjonującą karierę. Zarabiaj £800-£1,200 tygodniowo z bezpłatnym zakwaterowaniem, wyżywieniem, kompleksowym szkoleniem CQC, świadczeniami zdrowotnymi i elastycznymi warunkami pracy. Aplikuj teraz i wprowadź prawdziwą zmianę.',
                 'type' => 'textarea',
                 'group' => 'seo',
             ],

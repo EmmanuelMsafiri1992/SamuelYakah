@@ -110,6 +110,28 @@
           </Link>
 
           <Link
+            :href="route('admin.branding.index')"
+            class="flex items-center px-6 py-3 hover:bg-gray-700 transition-colors"
+            :class="{ 'bg-gray-700': route().current('admin.branding.*') }"
+          >
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Branding
+          </Link>
+
+          <Link
+            :href="route('admin.email-settings.index')"
+            class="flex items-center px-6 py-3 hover:bg-gray-700 transition-colors"
+            :class="{ 'bg-gray-700': route().current('admin.email-settings.*') }"
+          >
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Email Settings
+          </Link>
+
+          <Link
             :href="route('admin.seo-settings.index')"
             class="flex items-center px-6 py-3 hover:bg-gray-700 transition-colors"
             :class="{ 'bg-gray-700': route().current('admin.seo-settings.*') }"
@@ -196,20 +218,12 @@
                 v-if="dropdownOpen"
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10"
               >
-                <Link
-                  :href="route('profile.edit')"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  Profile
-                </Link>
-                <Link
-                  :href="route('logout')"
-                  method="post"
-                  as="button"
+                <button
+                  @click="handleLogout"
                   class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Logout
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -248,7 +262,8 @@ const currentLocale = computed(() => page.props.currentLocale || 'pl')
 
 const languages = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'pl', name: 'Polski', flag: '🇵🇱' }
+  { code: 'pl', name: 'Polski', flag: '🇵🇱' },
+  { code: 'nl', name: 'Nederlands', flag: '🇳🇱' }
 ]
 
 const currentLanguage = computed(() =>
@@ -276,6 +291,14 @@ const switchLanguage = (locale) => {
     preserveScroll: false,
     onSuccess: () => {
       langDropdownOpen.value = false
+    }
+  })
+}
+
+const handleLogout = () => {
+  router.post(route('logout'), {}, {
+    onSuccess: () => {
+      window.location.href = '/'
     }
   })
 }

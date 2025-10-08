@@ -23,6 +23,6 @@ const currentLocale = computed(() => page.props.currentLocale || 'en');
             <slot />
         </main>
 
-        <Footer :settings="settings" />
+        <Footer :settings="settings" :currentLocale="currentLocale" />
     </div>
 </template>

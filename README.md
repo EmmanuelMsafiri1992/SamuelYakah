@@ -1,6 +1,6 @@
-# Violetta Home Care Limited - Live-in Care Jobs Website
+# Sunrise & Sunset Home Care - Website
 
-A comprehensive, bilingual (English/Polish) live-in care recruitment website built with Laravel 12, Vue.js 3, Inertia.js, and Tailwind CSS.
+A professional, multilingual home care website built with Laravel 12, Inertia.js, and Vue 3.
 
 ## 🌟 Features
 

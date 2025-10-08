@@ -43,10 +43,12 @@ class HomeController extends Controller
             ->orderBy('order')
             ->get()
             ->map(function ($faq) use ($locale) {
+                $questionField = "question_{$locale}";
+                $answerField = "answer_{$locale}";
                 return [
                     'id' => $faq->id,
-                    'question' => $locale === 'pl' ? $faq->question_pl : $faq->question_en,
-                    'answer' => $locale === 'pl' ? $faq->answer_pl : $faq->answer_en,
+                    'question' => $faq->$questionField ?? $faq->question_en,
+                    'answer' => $faq->$answerField ?? $faq->answer_en,
                 ];
             });
 
@@ -55,10 +57,12 @@ class HomeController extends Controller
             ->orderBy('order')
             ->get()
             ->map(function ($benefit) use ($locale) {
+                $titleField = "title_{$locale}";
+                $descriptionField = "description_{$locale}";
                 return [
                     'id' => $benefit->id,
-                    'title' => $locale === 'pl' ? $benefit->title_pl : $benefit->title_en,
-                    'description' => $locale === 'pl' ? $benefit->description_pl : $benefit->description_en,
+                    'title' => $benefit->$titleField ?? $benefit->title_en,
+                    'description' => $benefit->$descriptionField ?? $benefit->description_en,
                     'icon' => $benefit->icon,
                 ];
             });
@@ -68,10 +72,12 @@ class HomeController extends Controller
             ->orderBy('order')
             ->get()
             ->map(function ($module) use ($locale) {
+                $titleField = "title_{$locale}";
+                $descriptionField = "description_{$locale}";
                 return [
                     'id' => $module->id,
-                    'title' => $locale === 'pl' ? $module->title_pl : $module->title_en,
-                    'description' => $locale === 'pl' ? $module->description_pl : $module->description_en,
+                    'title' => $module->$titleField ?? $module->title_en,
+                    'description' => $module->$descriptionField ?? $module->description_en,
                 ];
             });
 

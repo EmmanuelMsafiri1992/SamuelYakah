@@ -10,6 +10,7 @@ class Setting extends Model
         'key',
         'value_en',
         'value_pl',
+        'value_nl',
         'type',
         'group',
     ];

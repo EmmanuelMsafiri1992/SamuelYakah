@@ -19,7 +19,7 @@ class SetLocale
         $locale = session('locale', 'pl');
 
         // Get locale from URL parameter if present
-        if ($request->has('lang') && in_array($request->lang, ['en', 'pl'])) {
+        if ($request->has('lang') && in_array($request->lang, ['en', 'pl', 'nl'])) {
             $locale = $request->lang;
             session(['locale' => $locale]);
         }

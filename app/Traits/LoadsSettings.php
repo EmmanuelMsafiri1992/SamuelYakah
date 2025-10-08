@@ -3,17 +3,20 @@
 namespace App\Traits;
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 
 trait LoadsSettings
 {
     /**
-     * Get all settings indexed by key
+     * Get all settings indexed by key (with caching)
      *
      * @return \Illuminate\Support\Collection
      */
     protected function getSettings()
     {
-        return Setting::all()->keyBy('key');
+        return Cache::remember('settings_all', 3600, function () {
+            return Setting::all()->keyBy('key');
+        });
     }
 
     /**

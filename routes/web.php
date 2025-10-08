@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\BenefitController;
+use App\Http\Controllers\Admin\BrandingController;
 use App\Http\Controllers\Admin\CareJobController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EmailSettingsController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\JobApplicationController as AdminJobApplicationController;
 use App\Http\Controllers\Admin\JobPositionController;
@@ -56,6 +58,14 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('job-positions', JobPositionController::class);
     Route::resource('settings', SettingController::class);
     Route::resource('seo-settings', SeoSettingController::class);
+
+    // Branding routes
+    Route::get('/branding', [BrandingController::class, 'index'])->name('branding.index');
+    Route::post('/branding', [BrandingController::class, 'update'])->name('branding.update');
+
+    // Email settings routes
+    Route::get('/email-settings', [EmailSettingsController::class, 'index'])->name('email-settings.index');
+    Route::post('/email-settings', [EmailSettingsController::class, 'update'])->name('email-settings.update');
 });
 
 require __DIR__.'/auth.php';

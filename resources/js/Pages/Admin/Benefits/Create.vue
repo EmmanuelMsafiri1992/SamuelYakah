@@ -29,6 +29,18 @@
               <span class="mr-2 text-lg">🇵🇱</span>
               Polski
             </button>
+            <button
+              @click="activeTab = 'nl'"
+              :class="[
+                activeTab === 'nl'
+                  ? 'border-blue-500 text-blue-600 bg-white'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                'group inline-flex items-center px-6 py-3 border-b-2 font-medium text-sm rounded-t-lg transition-all duration-200'
+              ]"
+            >
+              <span class="mr-2 text-lg">🇳🇱</span>
+              Nederlands
+            </button>
           </nav>
         </div>
 
@@ -113,6 +125,47 @@
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                   </svg>
                   {{ form.errors.description_pl }}
+                </p>
+              </div>
+            </div>
+
+            <!-- Dutch Fields -->
+            <div v-show="activeTab === 'nl'" class="space-y-6 animate-fade-in">
+              <div>
+                <label for="title_nl" class="block text-sm font-semibold text-gray-700 mb-2">
+                  {{ $page.props.translations.admin.title_nl }}
+                </label>
+                <input
+                  id="title_nl"
+                  v-model="form.title_nl"
+                  type="text"
+                  class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200"
+                  :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500': form.errors.title_nl }"
+                />
+                <p v-if="form.errors.title_nl" class="mt-2 text-sm text-red-600 flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                  </svg>
+                  {{ form.errors.title_nl }}
+                </p>
+              </div>
+
+              <div>
+                <label for="description_nl" class="block text-sm font-semibold text-gray-700 mb-2">
+                  {{ $page.props.translations.admin.description_nl }}
+                </label>
+                <textarea
+                  id="description_nl"
+                  v-model="form.description_nl"
+                  rows="4"
+                  class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200"
+                  :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500': form.errors.description_nl }"
+                />
+                <p v-if="form.errors.description_nl" class="mt-2 text-sm text-red-600 flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                  </svg>
+                  {{ form.errors.description_nl }}
                 </p>
               </div>
             </div>
@@ -222,6 +275,8 @@ const form = useForm({
   description_en: '',
   title_pl: '',
   description_pl: '',
+  title_nl: '',
+  description_nl: '',
   icon: '',
   order: 0,
   active: true

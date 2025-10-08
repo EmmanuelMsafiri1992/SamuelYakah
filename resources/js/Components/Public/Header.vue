@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { ref, onMounted, onUnmounted, watch, computed } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import LanguageSwitcher from '@/Components/LanguageSwitcher.vue';
 
@@ -53,7 +53,7 @@ onUnmounted(() => {
     document.body.style.overflow = '';
 });
 
-const navigationItems = [
+const navigationItems = computed(() => [
     { name: getSetting('menu_home', 'Home'), href: '/' },
     { name: getSetting('menu_live_in_care', 'Live-in Care'), href: '/live-in-care' },
     { name: getSetting('menu_care_funding', 'Care Funding'), href: '/care-funding' },
@@ -61,7 +61,7 @@ const navigationItems = [
     { name: getSetting('menu_careers', 'Careers'), href: '/careers' },
     { name: getSetting('menu_news', 'News'), href: '/news' },
     { name: getSetting('menu_contact', 'Contact'), href: '/contact' }
-];
+]);
 </script>
 
 <template>
@@ -74,7 +74,7 @@ const navigationItems = [
                 <!-- Logo -->
                 <div class="flex items-center">
                     <Link href="/" class="flex items-center space-x-3">
-                        <!-- Violetta Home Care Limited Icon -->
+                        <!-- Sunrise & Sunset Home Care Icon -->
                         <div class="relative w-12 h-12">
                             <div class="absolute inset-0 bg-gradient-to-br from-[#4FE1D6] to-[#2563eb] rounded-lg flex items-center justify-center shadow-md">
                                 <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -84,7 +84,7 @@ const navigationItems = [
                             </div>
                         </div>
                         <div class="hidden sm:block">
-                            <h1 class="text-xl font-bold bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] bg-clip-text text-transparent">{{ getSetting('site_name', 'Violetta Home Care Limited') }}</h1>
+                            <h1 class="text-xl font-bold bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] bg-clip-text text-transparent">{{ getSetting('site_name', 'Sunrise & Sunset Home Care') }}</h1>
                             <p class="text-xs text-gray-600">{{ getSetting('site_tagline', 'Care with Compassion') }}</p>
                         </div>
                     </Link>
@@ -94,7 +94,7 @@ const navigationItems = [
                 <div class="flex items-center space-x-4">
                     <!-- Phone Number -->
                     <div class="hidden sm:block text-right">
-                        <p class="text-xs text-gray-600 mb-0.5">{{ getSetting('contact_phone_display', 'Call our friendly team today on') }}</p>
+                        <p class="text-xs text-gray-600 mb-0.5">{{ getSetting('header_phone_text', 'Call our friendly team today on') }}</p>
                         <a
                             :href="'tel:' + getSetting('contact_phone', '+442032391227').replace(/\s/g, '')"
                             class="text-2xl font-bold text-[#2563eb] hover:text-[#1e40af] transition-colors duration-200 tracking-tight"
@@ -111,7 +111,7 @@ const navigationItems = [
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                         </svg>
-                        <span>Login</span>
+                        <span>{{ getSetting('header_login_text', 'Login') }}</span>
                     </Link>
 
                     <!-- Language Switcher -->
@@ -178,7 +178,7 @@ const navigationItems = [
                             </div>
                         </div>
                         <div class="hidden sm:block">
-                            <h1 class="text-lg font-bold bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] bg-clip-text text-transparent">{{ getSetting('site_name', 'Violetta Home Care') }}</h1>
+                            <h1 class="text-lg font-bold bg-gradient-to-r from-[#2563eb] to-[#4FE1D6] bg-clip-text text-transparent">{{ getSetting('site_name', 'Sunrise & Sunset Home Care') }}</h1>
                         </div>
                     </Link>
 

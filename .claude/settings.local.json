@@ -1,26 +1,15 @@
 {
   "permissions": {
     "allow": [
+      "Bash(mkdir:*)",
+      "Bash(php artisan migrate:*)",
+      "Bash(php artisan tinker:*)",
+      "Bash(composer dev:*)",
       "Bash(php artisan:*)",
       "Bash(npm run dev:*)",
-      "Bash(net start:*)",
-      "Bash(findstr:*)",
-      "WebFetch(domain:astutehomecare.co.uk)",
-      "Bash(curl -L \"https://images.pexels.com/photos/3768131/pexels-photo-3768131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1\" -o \"C:\\laragon\\www\\SamuelYakah\\public\\images\\care-team.jpg\")",
-      "Bash(curl -L \"https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1\" -o \"C:\\laragon\\www\\SamuelYakah\\public\\images\\careers.jpg\")",
-      "Bash(curl -L \"https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1\" -o \"C:\\laragon\\www\\SamuelYakah\\public\\images\\home-care.jpg\")",
-      "Bash(dir:*)",
-      "Bash(del \"C:\\laragon\\www\\SamuelYakah\\database\\migrations\\0001_01_01_000002_create_jobs_table.php\")",
+      "Bash(find:*)",
       "Bash(npm run build:*)",
-      "Bash(del \"C:\\laragon\\www\\SamuelYakah\\resources\\js\\Pages\\Welcome.vue\")",
-      "Bash(del \"C:\\laragon\\www\\SamuelYakah\\resources\\js\\Pages\\Dashboard.vue\")",
-      "Bash(del \"C:\\laragon\\www\\SamuelYakah\\resources\\js\\Pages\\Auth\\Register.vue\")",
-      "Bash(del \"C:\\laragon\\www\\SamuelYakah\\resources\\js\\Pages\\Auth\\VerifyEmail.vue\")",
-      "Bash(del \"C:\\laragon\\www\\SamuelYakah\\app\\Http\\Controllers\\Auth\\RegisteredUserController.php\")",
-      "Bash(del \"C:\\laragon\\www\\SamuelYakah\\app\\Http\\Controllers\\Auth\\VerifyEmailController.php\")",
-      "Bash(del \"C:\\laragon\\www\\SamuelYakah\\app\\Http\\Controllers\\Auth\\EmailVerificationPromptController.php\")",
-      "Bash(del \"C:\\laragon\\www\\SamuelYakah\\app\\Http\\Controllers\\Auth\\EmailVerificationNotificationController.php\")",
-      "Bash(del \"C:\\laragon\\www\\SamuelYakah\\app\\Http\\Controllers\\ProfileController.php\")"
+      "Bash(cd:*)"
     ],
     "deny": [],
     "ask": []

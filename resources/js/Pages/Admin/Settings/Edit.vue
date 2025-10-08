@@ -84,6 +84,18 @@
                   >
                     Polish Value
                   </button>
+                  <button
+                    type="button"
+                    @click="activeTab = 'nl'"
+                    :class="[
+                      activeTab === 'nl'
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                      'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+                    ]"
+                  >
+                    Dutch Value
+                  </button>
                 </nav>
               </div>
 
@@ -121,6 +133,26 @@
                   <label class="block text-sm font-medium text-gray-700">Value (Polski)</label>
                   <input
                     v-model="form.value_pl"
+                    :type="form.type === 'number' ? 'number' : 'text'"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <!-- Dutch Value -->
+              <div v-show="activeTab === 'nl'" class="mt-6">
+                <div v-if="form.type === 'textarea'">
+                  <label class="block text-sm font-medium text-gray-700">Value (Nederlands)</label>
+                  <textarea
+                    v-model="form.value_nl"
+                    rows="4"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+                <div v-else>
+                  <label class="block text-sm font-medium text-gray-700">Value (Nederlands)</label>
+                  <input
+                    v-model="form.value_nl"
                     :type="form.type === 'number' ? 'number' : 'text'"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                   />
@@ -167,6 +199,7 @@ const form = useForm({
   key: props.setting.key,
   value_en: props.setting.value_en,
   value_pl: props.setting.value_pl,
+  value_nl: props.setting.value_nl,
   type: props.setting.type,
   group: props.setting.group
 })

@@ -14,7 +14,8 @@ const dropdownRef = ref(null);
 
 const languages = [
     { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'pl', name: 'Polski', flag: '🇵🇱' }
+    { code: 'pl', name: 'Polski', flag: '🇵🇱' },
+    { code: 'nl', name: 'Nederlands', flag: '🇳🇱' }
 ];
 
 const currentLanguage = computed(() =>

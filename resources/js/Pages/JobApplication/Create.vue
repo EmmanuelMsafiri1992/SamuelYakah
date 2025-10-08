@@ -18,6 +18,16 @@ const props = defineProps({
     }
 });
 
+// Helper function to get setting value based on current locale
+const getSetting = (key, defaultValue = '') => {
+    if (!props.settings || !props.settings[key]) {
+        return defaultValue;
+    }
+
+    const valueKey = `value_${props.currentLocale}`;
+    return props.settings[key][valueKey] || props.settings[key].value_en || defaultValue;
+};
+
 const form = useForm({
     first_name: '',
     last_name: '',
@@ -73,10 +83,10 @@ const submit = () => {
                 <!-- Header -->
                 <div class="max-w-3xl mx-auto text-center mb-10">
                     <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        Apply for Live-In Care Position
+                        {{ getSetting('jobapp_header_title', 'Apply for Live-In Care Position') }}
                     </h1>
                     <p class="text-lg text-gray-600">
-                        Fill out the form below to start your journey with us. All fields marked with * are required.
+                        {{ getSetting('jobapp_header_desc', 'Fill out the form below to start your journey with us. All fields marked with * are required.') }}
                     </p>
                 </div>
 
@@ -86,7 +96,7 @@ const submit = () => {
                         <!-- Personal Information -->
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-orange-500">
-                                Personal Information
+                                {{ getSetting('jobapp_personal_title', 'Personal Information') }}
                             </h2>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
@@ -179,7 +189,7 @@ const submit = () => {
                         <!-- Professional Information -->
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-orange-500">
-                                Professional Information
+                                {{ getSetting('jobapp_professional_title', 'Professional Information') }}
                             </h2>
                             <div class="space-y-6">
                                 <div>
@@ -213,7 +223,7 @@ const submit = () => {
                         <!-- Additional Information -->
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-orange-500">
-                                Additional Information
+                                {{ getSetting('jobapp_additional_title', 'Additional Information') }}
                             </h2>
                             <div class="space-y-4">
                                 <div class="flex items-start">
@@ -227,9 +237,9 @@ const submit = () => {
                                     </div>
                                     <div class="ml-3">
                                         <label for="has_right_to_work" class="font-medium text-gray-900">
-                                            I have the right to work in the UK *
+                                            {{ getSetting('jobapp_right_to_work', 'I have the right to work in the UK *') }}
                                         </label>
-                                        <p class="text-sm text-gray-600">You must have valid work authorization to apply for this position.</p>
+                                        <p class="text-sm text-gray-600">{{ getSetting('jobapp_right_to_work_desc', 'You must have valid work authorization to apply for this position.') }}</p>
                                     </div>
                                 </div>
                                 <InputError class="mt-2" :message="form.errors.has_right_to_work" />
@@ -245,9 +255,9 @@ const submit = () => {
                                     </div>
                                     <div class="ml-3">
                                         <label for="has_driving_license" class="font-medium text-gray-900">
-                                            I have a valid driving license
+                                            {{ getSetting('jobapp_driving_license', 'I have a valid driving license') }}
                                         </label>
-                                        <p class="text-sm text-gray-600">A driving license is preferred but not required.</p>
+                                        <p class="text-sm text-gray-600">{{ getSetting('jobapp_driving_license_desc', 'A driving license is preferred but not required.') }}</p>
                                     </div>
                                 </div>
                                 <InputError class="mt-2" :message="form.errors.has_driving_license" />
@@ -257,7 +267,7 @@ const submit = () => {
                         <!-- CV Upload -->
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-orange-500">
-                                CV Upload
+                                {{ getSetting('jobapp_cv_title', 'CV Upload') }}
                             </h2>
                             <div>
                                 <InputLabel for="cv" value="Upload Your CV *" />
@@ -314,7 +324,7 @@ const submit = () => {
                         <!-- Submit Button -->
                         <div class="flex items-center justify-between pt-6 border-t border-gray-200">
                             <p class="text-sm text-gray-600">
-                                * Required fields
+                                {{ getSetting('jobapp_required', '* Required fields') }}
                             </p>
                             <button
                                 type="submit"
@@ -325,7 +335,7 @@ const submit = () => {
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
-                                {{ form.processing ? 'Submitting...' : 'Submit Application' }}
+                                {{ form.processing ? getSetting('jobapp_submitting', 'Submitting...') : getSetting('jobapp_submit', 'Submit Application') }}
                                 <svg v-if="!form.processing" class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                 </svg>
@@ -341,13 +351,13 @@ const submit = () => {
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <div>
-                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Need Help?</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ getSetting('jobapp_help_title', 'Need Help?') }}</h3>
                             <p class="text-gray-700 mb-2">
-                                If you have any questions about the application process or need assistance, please don't hesitate to contact us.
+                                {{ getSetting('jobapp_help_desc', 'If you have any questions about the application process or need assistance, please don\'t hesitate to contact us.') }}
                             </p>
                             <p class="text-gray-700">
-                                Email: <a :href="`mailto:${settings.contact_email || 'info@example.com'}`" class="text-orange-600 hover:text-orange-700 font-medium">{{ settings.contact_email || 'info@example.com' }}</a> |
-                                Phone: <a :href="`tel:${settings.contact_phone || '+44 123 456 7890'}`" class="text-orange-600 hover:text-orange-700 font-medium">{{ settings.contact_phone || '+44 123 456 7890' }}</a>
+                                Email: <a :href="'mailto:' + getSetting('footer_contact_email', 'info@sunrisesunsetcare.co.uk')" class="text-orange-600 hover:text-orange-700 font-medium">{{ getSetting('footer_contact_email', 'info@sunrisesunsetcare.co.uk') }}</a> |
+                                Phone: <a :href="'tel:' + getSetting('contact_phone', '+442032391227').replace(/\s/g, '')" class="text-orange-600 hover:text-orange-700 font-medium">{{ getSetting('contact_phone', '+44 20 3239 1227') }}</a>
                             </p>
                         </div>
                     </div>
@@ -355,6 +365,6 @@ const submit = () => {
             </div>
         </div>
 
-        <Footer :settings="settings" />
+        <Footer :settings="settings" :currentLocale="currentLocale" />
     </div>
 </template>

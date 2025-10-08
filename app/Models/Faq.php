@@ -11,6 +11,8 @@ class Faq extends Model
         'answer_en',
         'question_pl',
         'answer_pl',
+        'question_nl',
+        'answer_nl',
         'order',
         'active',
     ];
